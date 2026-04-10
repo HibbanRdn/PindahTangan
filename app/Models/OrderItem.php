@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class OrderItem extends Model
+{
+    public $timestamps = false;
+
+    protected $fillable = [
+        'order_id', 'product_id', 'product_name', 'product_price', 
+        'product_condition', 'quantity', 'subtotal', 'created_at'
+    ];
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function product(): BelongsTo
+    {
+        // Bisa null jika produk dihapus (sesuai aturan nullOnDelete di migration)
+        return $this->belongsTo(Product::class);
+    }
+}
