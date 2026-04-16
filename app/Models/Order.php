@@ -34,4 +34,10 @@ class Order extends Model
     {
         return $this->hasOne(Payment::class);
     }
+
+    // TAMBAHAN (WAJIB UNTUK TESTIMONI)
+    public function testimonial(): HasOne
+    {
+        return $this->hasOne(Testimonial::class);
+    }
 }
