@@ -1,8 +1,20 @@
 @php
 $colors = [
-    'primary'   => ['bg' => '#4f46e5', 'hover' => '#4338ca', 'text' => '#ffffff'],
-    'success'   => ['bg' => '#059669', 'hover' => '#047857', 'text' => '#ffffff'],
-    'error'     => ['bg' => '#dc2626', 'hover' => '#b91c1c', 'text' => '#ffffff'],
+    'primary' => [
+        'bg' => '#111827',      // gray-900
+        'hover' => '#059669',   // emerald-600
+        'text' => '#ffffff'
+    ],
+    'success' => [
+        'bg' => '#059669',      // emerald-600
+        'hover' => '#047857',   // emerald-700
+        'text' => '#ffffff'
+    ],
+    'error' => [
+        'bg' => '#dc2626',      // red-600 (tetap relevan untuk error)
+        'hover' => '#b91c1c',   // red-700
+        'text' => '#ffffff'
+    ],
 ];
 $color = $colors[$color ?? 'primary'];
 @endphp

@@ -14,7 +14,7 @@
     body {
       -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
-      background-color: #f4f4f5;
+      background-color: #f9fafb; /* gray-50 */
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     img { border: 0; outline: none; max-width: 100%; }
@@ -25,7 +25,7 @@
     /* Wrapper */
     .email-wrapper {
       width: 100%;
-      background-color: #f4f4f5;
+      background-color: #f9fafb;
       padding: 40px 16px;
     }
     .email-card {
@@ -39,7 +39,7 @@
 
     /* Header */
     .email-header {
-      background-color: #111827;
+      background-color: #111827; /* gray-900 */
       padding: 32px 40px 28px;
       text-align: left;
     }
@@ -51,7 +51,7 @@
       text-decoration: none;
     }
     .email-header-logo span {
-      color: #818cf8; /* indigo-400 */
+      color: #10b981; /* emerald-500 */
     }
 
     /* Body */
@@ -61,58 +61,58 @@
     .email-body p {
       font-size: 15px;
       line-height: 1.7;
-      color: #374151;
+      color: #374151; /* gray-700 */
       margin: 0 0 16px;
     }
     .email-body h1 {
       font-size: 24px;
       font-weight: 900;
       letter-spacing: -0.5px;
-      color: #111827;
+      color: #111827; /* gray-900 */
       margin: 0 0 20px;
       line-height: 1.2;
     }
     .email-body a {
-      color: #4f46e5;
+      color: #059669; /* emerald-600 */
       text-decoration: underline;
     }
 
     /* Divider */
     .email-divider {
       height: 1px;
-      background-color: #f3f4f6;
+      background-color: #f3f4f6; /* gray-100 */
       margin: 28px 0;
     }
 
-    /* Subcopy (teks kecil di bawah tombol) */
+    /* Subcopy */
     .email-subcopy {
       padding: 0 40px 32px;
     }
     .email-subcopy p {
       font-size: 12px;
       line-height: 1.6;
-      color: #9ca3af;
+      color: #9ca3af; /* gray-400 */
       margin: 0;
     }
     .email-subcopy a {
-      color: #6b7280;
+      color: #6b7280; /* gray-500 */
       word-break: break-all;
     }
 
     /* Footer */
     .email-footer {
-      background-color: #111827;
+      background-color: #111827; /* gray-900 */
       padding: 28px 40px;
       text-align: center;
     }
     .email-footer p {
       font-size: 12px;
-      color: #6b7280;
+      color: #6b7280; /* gray-500 */
       margin: 0 0 6px;
       line-height: 1.6;
     }
     .email-footer a {
-      color: #818cf8;
+      color: #10b981; /* emerald-500 */
       text-decoration: none;
     }
     .email-footer a:hover {
@@ -121,11 +121,9 @@
     .email-footer .footer-brand {
       font-size: 13px;
       font-weight: 700;
-      color: #9ca3af;
+      color: #9ca3af; /* gray-400 */
       margin-bottom: 8px;
     }
-
-    /* Tombol CTA sudah di button.blade.php */
 
     /* Responsive */
     @media only screen and (max-width: 600px) {
@@ -144,26 +142,20 @@
     <!-- Header -->
     @include('vendor.mail.html.header')
 
-    <!-- Body — konten dari masing-masing Mailable -->
+    <!-- Body -->
     <div class="email-body">
       {{ Illuminate\Mail\Markdown::parse($slot) }}
 
       {{ $subcopy ?? '' }}
     </div>
 
-    <!-- Subcopy (teks URL fallback untuk tombol) -->
-    @isset($subcopy)
-    <div class="email-subcopy">
-      {{ Illuminate\Mail\Markdown::parse($subcopy) }}
-    </div>
-    @endisset
 
     <!-- Footer -->
     @include('vendor.mail.html.footer')
 
   </div>
 
-  <!-- Fine print di bawah card -->
+  <!-- Fine print -->
   <p style="text-align:center; font-size:11px; color:#9ca3af; margin-top:20px; line-height:1.5;">
     Email ini dikirim otomatis. Mohon tidak membalas email ini.<br>
     © {{ date('Y') }} PindahTangan. All rights reserved.
