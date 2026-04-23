@@ -13,7 +13,7 @@ class TestimonialController extends Controller
     public function create($orderCode)
     {
         $order = Order::where('order_code', $orderCode)
-            ->where('user_id', 2) // ✅ FIX
+            ->where('user_id', 2) // Perlu FIX
             ->where('status', 'completed')
             ->firstOrFail();
 
@@ -28,7 +28,7 @@ class TestimonialController extends Controller
     public function store(Request $request, $orderCode)
     {
         $order = Order::where('order_code', $orderCode)
-            ->where('user_id', 2) // ✅ FIX
+            ->where('user_id', 2) // Pelu FIX
             ->where('status', 'completed')
             ->firstOrFail();
 
@@ -50,7 +50,7 @@ class TestimonialController extends Controller
         try {
             // ✅ Simpan testimoni
             $testimonial = Testimonial::create([
-                'user_id'  => 2, // ✅ FIX
+                'user_id'  => 2, // Perlu FIX
                 'order_id' => $order->id,
                 'rating'   => $request->rating,
                 'comment'  => $request->comment,
