@@ -95,7 +95,7 @@
   <!-- ── Navbar minimal ── -->
   <nav class="bg-white border-b border-gray-100 px-6 h-14 flex items-center justify-between">
     <a href="/" class="inline-flex items-center gap-2">
-      <img src="{{ asset('images/logo_pindahtangan.png') }}" alt="PindahTangan" class="h-35 w-auto" />
+      <img src="{{ asset('images/logo_full.png') }}" alt="PindahTangan" class="h-15 w-auto" />
     </a>
     <form method="POST" action="{{ route('logout') }}" id="logout-nav-form">
       @csrf

@@ -85,8 +85,8 @@
       <!-- Logo -->
       <div class="relative z-10">
         <a href="/" class="inline-flex items-center gap-2">
-          <img src="{{ asset('images/logo_pindahtangan.png') }}" alt="PindahTangan"
-               class="h-35 w-auto brightness-0 invert" />
+          <img src="{{ asset('images/logo_full.png') }}" alt="PindahTangan"
+               class="h-15 w-auto brightness-0 invert" />
         </a>
       </div>
 
