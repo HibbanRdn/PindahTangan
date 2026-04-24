@@ -363,7 +363,10 @@
             <label for="password" class="block text-xs font-bold text-gray-500 uppercase tracking-wider">
               Password
             </label>
-            {{-- Lupa password (bisa ditambahkan) --}}
+              <a href="{{ route('password.request') }}"
+                class="text-xs text-gray-400 hover:text-emerald-600 transition-colors duration-200">
+                Lupa password?
+              </a>
           </div>
           <div class="relative">
             <input
