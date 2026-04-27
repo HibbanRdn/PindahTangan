@@ -1,272 +1,222 @@
 @extends('admin.layouts.app')
 @section('title', 'Tambah Produk')
 @section('breadcrumb')
-  <a href="{{ route('admin.produk.index') }}" class="hover:text-gray-900 transition-colors">Produk</a>
-  <svg class="w-3 h-3 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-  </svg>
-  <span class="text-gray-900 font-semibold">Tambah Produk</span>
+  <a href="{{ route('admin.produk.index') }}">Produk</a>
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  <span>Tambah Produk</span>
 @endsection
 
 @section('content')
 
-<div class="max-w-4xl">
+<div style="max-width:960px;">
 
   {{-- ── Header ── --}}
-  <div class="flex items-center gap-4 mb-6">
-    <a href="{{ route('admin.produk.index') }}"
-       class="w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-all">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-      </svg>
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;">
+    <a href="{{ route('admin.produk.index') }}" class="btn btn-ghost btn-sm btn-icon">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
     </a>
     <div>
-      <h1 class="text-2xl font-black text-gray-900 tracking-tight">Tambah Produk</h1>
-      <p class="text-gray-500 text-sm mt-0.5">Isi semua informasi produk dengan lengkap</p>
+      <div style="font-size:22px;font-weight:800;color:var(--text-1);letter-spacing:-.02em;">Tambah Produk</div>
+      <div style="font-size:13px;color:var(--text-3);margin-top:3px;">Isi semua informasi produk dengan lengkap dan akurat.</div>
     </div>
   </div>
 
-  {{-- ── Form ── --}}
-  <form method="POST" action="{{ route('admin.produk.store') }}" enctype="multipart/form-data" id="product-form">
+  <form method="POST" action="{{ route('admin.produk.store') }}" enctype="multipart/form-data">
     @csrf
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start;">
 
-      {{-- Kolom Utama (2/3) --}}
-      <div class="lg:col-span-2 space-y-5">
+      {{-- ── Kolom Kiri ── --}}
+      <div style="display:flex;flex-direction:column;gap:16px;">
 
         {{-- Informasi Dasar --}}
-        <div class="bg-white border border-gray-100 rounded-2xl p-6">
-          <h2 class="text-sm font-black text-gray-900 uppercase tracking-widest mb-5">Informasi Produk</h2>
+        <div class="card" style="padding:24px;">
+          <div style="font-size:12px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border-light);">
+            Informasi Produk
+          </div>
 
           {{-- Nama --}}
-          <div class="mb-4">
-            <label for="name" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">
-              Nama Produk <span class="text-red-500">*</span>
-            </label>
-            <input type="text" id="name" name="name" value="{{ old('name') }}"
-                   placeholder="contoh: Sony WH-1000XM4"
-                   class="w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition
-                          {{ $errors->has('name') ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100' : 'border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100' }}" />
+          <div style="margin-bottom:18px;">
+            <label class="form-label">Nama Produk <span class="req">*</span></label>
+            <input type="text" name="name" value="{{ old('name') }}"
+                   placeholder="contoh: Kemeja Flanel Merah Size M"
+                   class="form-input {{ $errors->has('name') ? 'error' : '' }}" />
             @error('name')
-              <p class="mt-1.5 text-xs text-red-500 flex items-center gap-1">
-                <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+              <div class="form-error">
+                <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                 {{ $message }}
-              </p>
+              </div>
             @enderror
           </div>
 
           {{-- Kategori --}}
-          <div class="mb-4">
-            <label for="category_id" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">
-              Kategori <span class="text-red-500">*</span>
-            </label>
-            <select id="category_id" name="category_id"
-                    class="w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition
-                           {{ $errors->has('category_id') ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100' : 'border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100' }}">
-              <option value="">-- Pilih Kategori --</option>
+          <div style="margin-bottom:18px;">
+            <label class="form-label">Kategori <span class="req">*</span></label>
+            <select name="category_id" class="form-select {{ $errors->has('category_id') ? 'error' : '' }}">
+              <option value="">— Pilih Kategori —</option>
               @foreach($categories as $cat)
-                <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
-                  {{ $cat->name }}
-                </option>
+                <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
               @endforeach
             </select>
-            @error('category_id')
-              <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
-            @enderror
+            @error('category_id')<div class="form-error">{{ $message }}</div>@enderror
           </div>
 
           {{-- Deskripsi --}}
           <div>
-            <label for="description" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">
-              Deskripsi <span class="text-red-500">*</span>
-            </label>
-            <textarea id="description" name="description" rows="5"
+            <label class="form-label">Deskripsi Produk <span class="req">*</span></label>
+            <textarea name="description" rows="5"
                       placeholder="Deskripsikan produk secara detail — merek, ukuran, warna, kelengkapan, riwayat penggunaan, dll."
-                      class="w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition resize-none
-                             {{ $errors->has('description') ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100' : 'border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100' }}">{{ old('description') }}</textarea>
-            @error('description')
-              <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
-            @enderror
+                      class="form-textarea {{ $errors->has('description') ? 'error' : '' }}">{{ old('description') }}</textarea>
+            @error('description')<div class="form-error">{{ $message }}</div>@enderror
           </div>
         </div>
 
         {{-- Kondisi --}}
-        <div class="bg-white border border-gray-100 rounded-2xl p-6">
-          <h2 class="text-sm font-black text-gray-900 uppercase tracking-widest mb-5">Kondisi Barang</h2>
+        <div class="card" style="padding:24px;">
+          <div style="font-size:12px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border-light);">
+            Kondisi Barang
+          </div>
 
-          <div class="grid grid-cols-3 gap-3 mb-4">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;">
             @foreach([
-              ['value'=>'like_new','label'=>'Like New','desc'=>'Hampir sempurna',    'classes'=>'peer-checked:border-emerald-500 peer-checked:bg-emerald-50 hover:border-emerald-300'],
-              ['value'=>'good',    'label'=>'Good',    'desc'=>'Bekas, layak pakai', 'classes'=>'peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:border-blue-300'],
-              ['value'=>'fair',    'label'=>'Fair',    'desc'=>'Ada cacat minor',    'classes'=>'peer-checked:border-orange-500 peer-checked:bg-orange-50 hover:border-orange-300'],
-            ] as $opt)
-              <label class="relative cursor-pointer">
-                <input type="radio" name="condition" value="{{ $opt['value'] }}"
-                       {{ old('condition') === $opt['value'] ? 'checked' : '' }}
-                       class="sr-only peer" />
-                <div class="border-2 rounded-xl p-3 text-center transition-all duration-200 border-gray-200 {{ $opt['classes'] }}">
-                  <p class="text-sm font-black text-gray-900">{{ $opt['label'] }}</p>
-                  <p class="text-[10px] text-gray-400 mt-0.5">{{ $opt['desc'] }}</p>
+              ['like_new','Like New','Hampir sempurna, tidak ada cacat berarti','#DCFCE7','#15803D','#A7F3D0'],
+              ['good',    'Good',    'Bekas pakai, masih layak dan fungsional', '#CCFBF1','#0F766E','#99F6E4'],
+              ['fair',    'Fair',    'Ada cacat minor, perlu dicermati',         '#FFEDD5','#9A3412','#FED7AA'],
+            ] as [$val,$label,$desc,$bg,$color,$border])
+              <label style="cursor:pointer;position:relative;">
+                <input type="radio" name="condition" value="{{ $val }}"
+                       {{ old('condition') === $val ? 'checked' : '' }}
+                       class="sr-only condition-radio" data-bg="{{ $bg }}" data-border="{{ $border }}" />
+                <div class="condition-card" style="padding:14px;border:2px solid var(--border);border-radius:9px;text-align:center;transition:all .15s;background:var(--card-bg);">
+                  <div style="font-size:13.5px;font-weight:700;color:var(--text-1);margin-bottom:4px;">{{ $label }}</div>
+                  <div style="font-size:11.5px;color:var(--text-3);line-height:1.4;">{{ $desc }}</div>
                 </div>
               </label>
             @endforeach
           </div>
-          @error('condition')
-            <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
-          @enderror
+          @error('condition')<div class="form-error" style="margin-bottom:10px;">{{ $message }}</div>@enderror
 
-          <div class="mt-4">
-            <label for="condition_notes" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">
-              Catatan Kondisi
-              <span class="text-gray-400 font-normal normal-case ml-1">(opsional — deskripsikan cacat/kekurangan secara jujur)</span>
-            </label>
-            <textarea id="condition_notes" name="condition_notes" rows="2"
-                      placeholder="contoh: ada goresan kecil di sudut kanan bawah, strap original masih ada..."
-                      class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 transition resize-none">{{ old('condition_notes') }}</textarea>
-            @error('condition_notes')
-              <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
-            @enderror
+          <div>
+            <label class="form-label">Catatan Kondisi <span class="hint">(opsional — deskripsikan kekurangan secara jujur)</span></label>
+            <textarea name="condition_notes" rows="2"
+                      placeholder="contoh: ada goresan kecil di sudut, semua fungsi normal..."
+                      class="form-textarea">{{ old('condition_notes') }}</textarea>
+            @error('condition_notes')<div class="form-error">{{ $message }}</div>@enderror
           </div>
         </div>
 
         {{-- Foto Tambahan --}}
-        <div class="bg-white border border-gray-100 rounded-2xl p-6">
-          <h2 class="text-sm font-black text-gray-900 uppercase tracking-widest mb-1">Foto Tambahan</h2>
-          <p class="text-xs text-gray-400 mb-4">Maks. 5 foto (JPG/PNG/WEBP, maks. 3MB/foto)</p>
+        <div class="card" style="padding:24px;">
+          <div style="font-size:12px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;">
+            Foto Tambahan
+          </div>
+          <div style="font-size:12px;color:var(--text-3);margin-bottom:16px;">Maksimal 5 foto pendukung (JPG/PNG/WEBP, maks. 3 MB/foto)</div>
 
           <div id="gallery-dropzone"
-               class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center hover:border-emerald-400 hover:bg-emerald-50/30 transition-all duration-200 cursor-pointer"
-               onclick="document.getElementById('images-input').click()">
-            <svg class="w-8 h-8 text-gray-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
-            <p class="text-sm text-gray-400">Klik untuk upload foto tambahan</p>
+               style="border:2px dashed var(--border);border-radius:10px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;"
+               onmouseenter="this.style.borderColor='#10B981';this.style.background='#F0FDF4';"
+               onmouseleave="this.style.borderColor='var(--border)';this.style.background='transparent';"
+               onclick="document.getElementById('gallery-input').click()">
+            <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--text-3);margin:0 auto 10px;display:block;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <div style="font-size:13.5px;font-weight:600;color:var(--text-2);margin-bottom:4px;">Klik atau seret foto ke sini</div>
+            <div style="font-size:12px;color:var(--text-3);">Bisa pilih lebih dari satu file sekaligus</div>
           </div>
-          <input type="file" id="images-input" name="images[]" multiple accept="image/*" class="hidden"
+          <input type="file" id="gallery-input" name="images[]" multiple accept="image/*" class="sr-only"
                  onchange="previewGallery(this)" />
+          <div id="gallery-preview" style="display:none;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px;"></div>
 
-          <div id="gallery-preview" class="grid grid-cols-4 gap-3 mt-3 hidden"></div>
-
-          @error('images')
-            <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
-          @enderror
-          @error('images.*')
-            <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
-          @enderror
+          @error('images')<div class="form-error" style="margin-top:8px;">{{ $message }}</div>@enderror
+          @error('images.*')<div class="form-error" style="margin-top:8px;">{{ $message }}</div>@enderror
         </div>
 
       </div>
 
-      {{-- Kolom Sidebar (1/3) --}}
-      <div class="space-y-5">
+      {{-- ── Kolom Kanan ── --}}
+      <div style="display:flex;flex-direction:column;gap:16px;position:sticky;top:20px;">
 
         {{-- Foto Utama --}}
-        <div class="bg-white border border-gray-100 rounded-2xl p-6">
-          <h2 class="text-sm font-black text-gray-900 uppercase tracking-widest mb-1">Foto Utama</h2>
-          <p class="text-xs text-gray-400 mb-4">JPG/PNG/WEBP, maks. 3MB <span class="text-red-500">*</span></p>
+        <div class="card" style="padding:20px;">
+          <div style="font-size:12px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;">Foto Utama <span style="color:var(--danger);">*</span></div>
+          <div style="font-size:12px;color:var(--text-3);margin-bottom:12px;">JPG/PNG/WEBP, maks. 3 MB</div>
 
-          <div id="main-image-preview"
-               class="w-full aspect-square rounded-xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/30 transition-all duration-200 overflow-hidden"
-               onclick="document.getElementById('main-image-input').click()">
-            <svg class="w-8 h-8 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            <p class="text-xs text-gray-400 text-center px-4">Klik untuk upload foto utama</p>
+          <div id="main-preview"
+               style="aspect-ratio:1;border:2px dashed var(--border);border-radius:10px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:all .2s;background:var(--page-bg);"
+               onmouseenter="this.style.borderColor='#10B981';" onmouseleave="this.style.borderColor='var(--border)';"
+               onclick="document.getElementById('main-input').click()">
+            <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--text-3);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/></svg>
+            <span style="font-size:12.5px;color:var(--text-3);text-align:center;padding:0 12px;">Klik untuk upload<br>foto utama</span>
           </div>
-          <input type="file" id="main-image-input" name="image" accept="image/*" class="hidden"
-                 onchange="previewMainImage(this)" />
-          @error('image')
-            <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
-          @enderror
+          <input type="file" id="main-input" name="image" accept="image/*" class="sr-only"
+                 onchange="previewMain(this)" />
+          @error('image')<div class="form-error" style="margin-top:8px;">{{ $message }}</div>@enderror
         </div>
 
         {{-- Harga & Logistik --}}
-        <div class="bg-white border border-gray-100 rounded-2xl p-6">
-          <h2 class="text-sm font-black text-gray-900 uppercase tracking-widest mb-5">Harga & Logistik</h2>
-
-          <div class="mb-4">
-            <label for="price" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">
-              Harga (Rp) <span class="text-red-500">*</span>
-            </label>
-            <div class="relative">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-bold text-gray-400">Rp</span>
-              <input type="number" id="price" name="price" value="{{ old('price') }}"
-                     placeholder="0" min="0" step="500"
-                     class="w-full pl-10 pr-4 py-2.5 border rounded-xl text-sm focus:outline-none transition
-                            {{ $errors->has('price') ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100' : 'border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100' }}" />
-            </div>
-            @error('price')
-              <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
-            @enderror
+        <div class="card" style="padding:20px;">
+          <div style="font-size:12px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border-light);">
+            Harga & Logistik
           </div>
 
-          <div class="mb-4">
-            <label for="weight" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">
-              Berat (gram) <span class="text-red-500">*</span>
-            </label>
-            <div class="relative">
-              <input type="number" id="weight" name="weight" value="{{ old('weight') }}"
-                     placeholder="contoh: 500" min="1"
-                     class="w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition
-                            {{ $errors->has('weight') ? 'border-red-400' : 'border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100' }}" />
-              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">gram</span>
+          <div style="margin-bottom:14px;">
+            <label class="form-label">Harga (Rp) <span class="req">*</span></label>
+            <div style="position:relative;">
+              <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:600;color:var(--text-3);">Rp</span>
+              <input type="number" name="price" value="{{ old('price') }}" placeholder="0" min="0" step="500"
+                     class="form-input {{ $errors->has('price') ? 'error' : '' }}" style="padding-left:36px;" />
             </div>
-            @error('weight')
-              <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
-            @enderror
+            @error('price')<div class="form-error">{{ $message }}</div>@enderror
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <label class="form-label">Berat <span class="req">*</span></label>
+            <div style="position:relative;">
+              <input type="number" name="weight" value="{{ old('weight') }}" placeholder="contoh: 500" min="1"
+                     class="form-input {{ $errors->has('weight') ? 'error' : '' }}" style="padding-right:40px;" />
+              <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--text-3);">gram</span>
+            </div>
+            @error('weight')<div class="form-error">{{ $message }}</div>@enderror
           </div>
 
           <div>
-            <label for="stock" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">
-              Stok <span class="text-red-500">*</span>
-            </label>
-            <input type="number" id="stock" name="stock" value="{{ old('stock', 1) }}"
-                   min="0" max="999"
-                   class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 transition" />
-            @error('stock')
-              <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
-            @enderror
+            <label class="form-label">Stok <span class="req">*</span></label>
+            <input type="number" name="stock" value="{{ old('stock', 1) }}" min="0" max="999"
+                   class="form-input" />
+            @error('stock')<div class="form-error">{{ $message }}</div>@enderror
           </div>
         </div>
 
-        {{-- FIX: Status Produk — value pakai enum DB: available, hidden --}}
-        <div class="bg-white border border-gray-100 rounded-2xl p-6">
-          <h2 class="text-sm font-black text-gray-900 uppercase tracking-widest mb-4">Status Produk</h2>
-
-          <div class="space-y-2">
+        {{-- Status --}}
+        <div class="card" style="padding:20px;">
+          <div style="font-size:12px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border-light);">
+            Status Produk
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
             @foreach([
-              ['value'=>'available','label'=>'Tersedia',      'desc'=>'Tampil di katalog',        'active_classes'=>'border-emerald-400 bg-emerald-50'],
-              ['value'=>'hidden',   'label'=>'Disembunyikan', 'desc'=>'Sembunyikan dari katalog', 'active_classes'=>'border-red-400 bg-red-50'],
-            ] as $opt)
-              @php $isChecked = old('status', 'available') === $opt['value']; @endphp
-              <label class="flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all duration-200
-                            {{ $isChecked ? $opt['active_classes'] : 'border-gray-100 hover:border-gray-200' }}">
-                <input type="radio" name="status" value="{{ $opt['value'] }}"
-                       {{ $isChecked ? 'checked' : '' }}
-                       class="accent-emerald-600" />
+              ['available','Tersedia','Tampil di katalog untuk pembeli','#DCFCE7','#15803D'],
+              ['hidden',   'Disembunyikan','Tidak tampil di katalog sementara','#FEE2E2','#B91C1C'],
+            ] as [$val,$label,$desc,$bg,$color])
+              @php $checked = old('status','available') === $val; @endphp
+              <label style="display:flex;align-items:center;gap:11px;padding:12px 13px;border:1.5px solid {{ $checked ? $color : 'var(--border)' }};border-radius:8px;cursor:pointer;background:{{ $checked ? $bg : 'transparent' }};transition:all .15s;"
+                     class="status-label" data-bg="{{ $bg }}" data-color="{{ $color }}">
+                <input type="radio" name="status" value="{{ $val }}" {{ $checked ? 'checked' : '' }}
+                       style="accent-color:#10B981;" class="status-radio" />
                 <div>
-                  <p class="text-sm font-bold text-gray-900">{{ $opt['label'] }}</p>
-                  <p class="text-[10px] text-gray-400">{{ $opt['desc'] }}</p>
+                  <div style="font-size:13px;font-weight:700;color:var(--text-1);">{{ $label }}</div>
+                  <div style="font-size:11.5px;color:var(--text-3);margin-top:1px;">{{ $desc }}</div>
                 </div>
               </label>
             @endforeach
           </div>
-
-          @error('status')
-            <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
-          @enderror
+          @error('status')<div class="form-error" style="margin-top:8px;">{{ $message }}</div>@enderror
         </div>
 
-        {{-- Submit --}}
-        <div class="flex flex-col gap-3">
-          <button type="submit"
-                  class="w-full py-3 bg-gray-900 text-white text-sm font-bold rounded-xl hover:bg-emerald-600 transition-colors duration-200 shadow-sm">
+        {{-- Actions --}}
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button type="submit" class="btn btn-primary" style="justify-content:center;padding:12px;">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             Simpan Produk
           </button>
-          <a href="{{ route('admin.produk.index') }}"
-             class="w-full py-3 bg-gray-100 text-gray-600 text-sm font-bold rounded-xl hover:bg-gray-200 transition-colors text-center">
+          <a href="{{ route('admin.produk.index') }}" class="btn btn-ghost" style="justify-content:center;padding:12px;">
             Batal
           </a>
         </div>
@@ -276,57 +226,92 @@
   </form>
 </div>
 
+<style>
+  .sr-only { position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0); }
+  .condition-radio:checked ~ .condition-card {
+    border-color: #10B981;
+    background: #F0FDF4;
+  }
+</style>
+
 @endsection
 
 @push('scripts')
 <script>
-  function previewMainImage(input) {
+  // ── Preview foto utama ──────────────────────────────
+  function previewMain(input) {
     if (!input.files || !input.files[0]) return;
     const reader = new FileReader();
     reader.onload = e => {
-      const preview = document.getElementById('main-image-preview');
-      preview.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover" />`;
+      const el = document.getElementById('main-preview');
+      el.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;" />`;
+      el.style.border = '2px solid #10B981';
     };
     reader.readAsDataURL(input.files[0]);
   }
 
+  // ── Preview foto tambahan ───────────────────────────
   function previewGallery(input) {
-    const preview = document.getElementById('gallery-preview');
-    preview.innerHTML = '';
-    if (!input.files || input.files.length === 0) {
-      preview.classList.add('hidden');
-      return;
-    }
-    preview.classList.remove('hidden');
-    Array.from(input.files).slice(0, 5).forEach(file => {
+    const wrap = document.getElementById('gallery-preview');
+    wrap.innerHTML = '';
+    if (!input.files || input.files.length === 0) { wrap.style.display = 'none'; return; }
+    wrap.style.display = 'grid';
+    Array.from(input.files).slice(0,5).forEach(file => {
       const reader = new FileReader();
       reader.onload = e => {
         const div = document.createElement('div');
-        div.className = 'aspect-square rounded-xl overflow-hidden bg-gray-100 border border-gray-200';
-        div.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover" />`;
-        preview.appendChild(div);
+        div.style.cssText = 'aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--border);background:var(--page-bg);';
+        div.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;" />`;
+        wrap.appendChild(div);
       };
       reader.readAsDataURL(file);
     });
   }
 
-  const dropzone = document.getElementById('gallery-dropzone');
-  ['dragenter','dragover'].forEach(ev => {
-    dropzone.addEventListener(ev, e => {
-      e.preventDefault();
-      dropzone.classList.add('border-emerald-400','bg-emerald-50');
-    });
-  });
-  ['dragleave','drop'].forEach(ev => {
-    dropzone.addEventListener(ev, e => {
-      e.preventDefault();
-      dropzone.classList.remove('border-emerald-400','bg-emerald-50');
-    });
-  });
-  dropzone.addEventListener('drop', e => {
-    const input = document.getElementById('images-input');
+  // ── Drag & Drop gallery ─────────────────────────────
+  const dz = document.getElementById('gallery-dropzone');
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.style.borderColor='#10B981'; dz.style.background='#F0FDF4'; });
+  dz.addEventListener('dragleave', () => { dz.style.borderColor='var(--border)'; dz.style.background='transparent'; });
+  dz.addEventListener('drop', e => {
+    e.preventDefault();
+    dz.style.borderColor='var(--border)'; dz.style.background='transparent';
+    const input = document.getElementById('gallery-input');
     input.files = e.dataTransfer.files;
     previewGallery(input);
+  });
+
+  // ── Condition radio highlight ───────────────────────
+  document.querySelectorAll('.condition-radio').forEach(radio => {
+    if (radio.checked) {
+      const card = radio.nextElementSibling;
+      card.style.borderColor = '#10B981';
+      card.style.background = radio.dataset.bg;
+    }
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.condition-radio').forEach(r => {
+        r.nextElementSibling.style.borderColor = 'var(--border)';
+        r.nextElementSibling.style.background = 'var(--card-bg)';
+      });
+      if (radio.checked) {
+        radio.nextElementSibling.style.borderColor = '#10B981';
+        radio.nextElementSibling.style.background = radio.dataset.bg;
+      }
+    });
+  });
+
+  // ── Status radio highlight ──────────────────────────
+  document.querySelectorAll('.status-radio').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.status-label').forEach(l => {
+        l.style.borderColor = 'var(--border)';
+        l.style.background = 'transparent';
+      });
+      if (radio.checked) {
+        const label = radio.closest('.status-label');
+        label.style.borderColor = label.dataset.color;
+        label.style.background = label.dataset.bg;
+      }
+    });
   });
 </script>
 @endpush
