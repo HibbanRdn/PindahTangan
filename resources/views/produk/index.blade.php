@@ -233,6 +233,60 @@
     }
     .result-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); }
 
+
+    .catalog-toolbar.compact {
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity .25s ease, transform .25s ease, max-height .25s ease;
+    }
+    body.island-mode .catalog-toolbar.compact {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      max-height: 420px;
+    }
+    #dynamic-island {
+      position: fixed;
+      top: 76px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-12px) scale(.95);
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    body.island-mode #dynamic-island {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+    .island-shell {
+      background: rgba(17,24,39,.9);
+      backdrop-filter: blur(12px);
+      border-radius: 999px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.2);
+    }
+    .island-btn {
+      width: 36px; height: 36px; border-radius: 999px;
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; background: transparent; border: none; cursor: pointer;
+    }
+    .island-btn:hover { background: rgba(255,255,255,.14); }
+    .island-panel {
+      background: #fff; border: 1px solid var(--border); border-radius: 16px;
+      margin-top: 8px; padding: 12px; width: min(92vw, 760px);
+      box-shadow: 0 16px 36px rgba(0,0,0,.14);
+      display:none;
+    }
+    #dynamic-island.expanded .island-panel { display:block; }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
       .filter-row { flex-direction: column; gap: 10px; }
@@ -245,12 +299,12 @@
   <nav id="navbar">
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative">
 
-      <a href="/" class="shrink-0 z-10">
+      <a href="{{ route('home') }}" class="shrink-0 z-10">
         <img src="{{ asset('images/logo_full.png') }}" alt="PindahTangan" class="h-10 w-auto" />
       </a>
 
       <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500 absolute left-1/2 -translate-x-1/2">
-        <a href="/" class="hover:text-gray-900 transition-colors duration-200">Beranda</a>
+        <a href="{{ route('home') }}" class="hover:text-gray-900 transition-colors duration-200">Beranda</a>
         <a href="{{ route('produk.index') }}" class="text-emerald-600 font-bold">Katalog</a>
       </div>
 
@@ -336,7 +390,7 @@
   </section>
 
   <!-- ══ FILTER & SEARCH ══ -->
-  <section class="sticky top-16 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+  <section class="sticky top-16 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm catalog-toolbar" id="catalog-toolbar">
     <div class="max-w-7xl mx-auto px-6 py-3">
 
       <form method="GET" action="{{ route('produk.index') }}" id="filter-form">
@@ -411,6 +465,37 @@
       </form>
     </div>
   </section>
+
+  <div id="dynamic-island">
+    <div class="island-shell">
+      <button type="button" class="island-btn" id="island-toggle" title="Buka alat katalog">
+        <img src="{{ asset('images/logo_half.png') }}" alt="menu" class="w-6 h-6">
+      </button>
+      <a href="{{ route('home') }}" class="island-btn" title="Beranda katalog">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M9 21V9h6v12"/></svg>
+      </a>
+      @auth
+      <form method="POST" action="{{ route('logout') }}">@csrf<button type="submit" class="island-btn" title="Keluar"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg></button></form>
+      @endauth
+    </div>
+    <div class="island-panel">
+      <div class="catalog-toolbar compact">
+        <form method="GET" action="{{ route('produk.index') }}">
+          <div class="flex flex-wrap items-center gap-3">
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari barang..." class="search-input flex-1"/>
+            <select name="condition" class="filter-select">
+              <option value="">Semua Kondisi</option><option value="like_new" {{ request('condition') === 'like_new' ? 'selected' : '' }}>Like New</option><option value="good" {{ request('condition') === 'good' ? 'selected' : '' }}>Good</option><option value="fair" {{ request('condition') === 'fair' ? 'selected' : '' }}>Fair</option>
+            </select>
+            <select name="sort" class="filter-select">
+              <option value="latest" {{ request('sort','latest') === 'latest' ? 'selected' : '' }}>Terbaru</option><option value="price_asc" {{ request('sort') === 'price_asc' ? 'selected' : '' }}>Harga Terendah</option><option value="price_desc" {{ request('sort') === 'price_desc' ? 'selected' : '' }}>Harga Tertinggi</option><option value="name" {{ request('sort') === 'name' ? 'selected' : '' }}>Nama A–Z</option>
+            </select>
+            <button type="submit" class="btn-emerald px-4 py-2 text-sm rounded-xl">Terapkan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
   <!-- ══ PRODUCT GRID ══ -->
   <main class="max-w-7xl mx-auto px-6 py-10">
@@ -576,7 +661,19 @@
 
     // ── 2. Navbar scroll ────────────────────────────────────────
     const navbar = document.getElementById('navbar');
-    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 10);
+    const island = document.getElementById('dynamic-island');
+    const toolbar = document.getElementById('catalog-toolbar');
+    const toggleIsland = document.getElementById('island-toggle');
+    const onScroll = () => {
+      const scrolled = window.scrollY > 80;
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
+      document.body.classList.toggle('island-mode', scrolled);
+      toolbar.style.opacity = scrolled ? '0' : '1';
+      toolbar.style.pointerEvents = scrolled ? 'none' : 'auto';
+      toolbar.style.maxHeight = scrolled ? '0px' : '400px';
+      if (!scrolled) island.classList.remove('expanded');
+    };
+    toggleIsland?.addEventListener('click', () => island.classList.toggle('expanded'));
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 

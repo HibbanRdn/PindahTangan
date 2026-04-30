@@ -191,11 +191,11 @@
   <!-- ══ NAVBAR ══ -->
   <nav id="navbar">
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative">
-      <a href="/" class="shrink-0 z-10">
+      <a href="{{ route('home') }}" class="shrink-0 z-10">
         <img src="{{ asset('images/logo_full.png') }}" alt="PindahTangan" class="h-10 w-auto" />
       </a>
       <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500 absolute left-1/2 -translate-x-1/2">
-        <a href="/" class="hover:text-gray-900 transition-colors duration-200">Beranda</a>
+        <a href="{{ route('home') }}" class="hover:text-gray-900 transition-colors duration-200">Beranda</a>
         <a href="{{ route('produk.index') }}" class="text-emerald-600 font-bold">Katalog</a>
       </div>
       <div class="flex items-center gap-3 z-10">
@@ -240,7 +240,7 @@
 
     <!-- Breadcrumb -->
     <nav class="breadcrumb mb-8 fade-up">
-      <a href="/">Beranda</a>
+      <a href="{{ route('home') }}">Beranda</a>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       <a href="{{ route('produk.index') }}">Katalog</a>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>

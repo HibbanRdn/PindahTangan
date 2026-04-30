@@ -20,8 +20,8 @@ use App\Http\Controllers\Admin\AdminPesananController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect()->route('produk.index');
+})->name('home');
 
 // Katalog Produk
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
