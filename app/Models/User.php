@@ -31,22 +31,25 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    // ── Helpers ──────────────────────────────────────────────
-
+    // ── Role helpers ─────────────────────────────────────────
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
 
     // ── Relasi ───────────────────────────────────────────────
+    public function testimonials()
+    {
+        return $this->hasMany(Testimonial::class);
+    }
 
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
 
-    public function testimonials()
+    public function carts()
     {
-        return $this->hasMany(Testimonial::class);
+        return $this->hasMany(Cart::class);
     }
 }
