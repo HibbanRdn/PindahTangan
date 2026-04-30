@@ -455,6 +455,20 @@
     </p>
   </div>
 
+  @if ($errors->any())
+    <div class="fade-up" style="background:#fef2f2; border:1.5px solid #fca5a5; padding:16px 20px; border-radius:14px; margin-bottom:24px;">
+      <div style="display:flex; align-items:center; gap:8px; color:#b91c1c; font-weight:700; margin-bottom:8px; font-size:14px;">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        Validasi Gagal (Sistem Menolak Form)
+      </div>
+      <ul style="margin:0; padding-left:24px; color:#dc2626; font-size:13px; line-height:1.6;">
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+
   <form method="POST" action="{{ route('checkout.store') }}" id="checkout-form">
     @csrf
 
@@ -845,29 +859,44 @@ function selectDestination(idx) {
 
   selectedDestination = item;
 
-  // Populate hidden inputs
-  document.getElementById('h_destination_id').value = item.id ?? item.subdistrict_id ?? '';
-  document.getElementById('h_province_name').value  = item.province ?? '';
-  document.getElementById('h_city_name').value       = `${item.subdistrict ?? ''}, ${item.district ?? ''}, ${item.city ?? ''}`.replace(/^,\s*|,\s*$/g, '');
+  // Coba ambil dari properti bawaan API Komerce
+  let prov = item.province_name ?? item.province ?? '';
+  let city = item.city_name ?? item.city ?? '';
+  let dist = item.district_name ?? item.district ?? '';
+  let sub  = item.subdistrict_name ?? item.subdistrict ?? '';
 
-  // Populate display fields
-  const fullLabel = item.label ?? `${item.subdistrict ?? ''}, ${item.district ?? ''}`;
+  // Fallback super aman: Ekstrak langsung dari label teks jika masih kosong
+  if ((!prov || !city) && item.label) {
+    const parts = item.label.split(',').map(s => s.trim());
+    // Contoh format: "YOSOREJO, METRO TIMUR, METRO, LAMPUNG, 34112"
+    if (parts.length >= 4) {
+      if (!prov) prov = parts[parts.length - 2]; // Ambil LAMPUNG
+      if (!city) city = parts[parts.length - 3]; // Ambil METRO
+    }
+  }
+
+  // Isi ke form input tersembunyi
+  document.getElementById('h_destination_id').value = item.id ?? item.subdistrict_id ?? '';
+  document.getElementById('h_province_name').value  = prov;
+  document.getElementById('h_city_name').value      = `${sub}, ${dist}, ${city}`.replace(/^[,\s]+|[,\s]+$/g, '').replace(/,\s*,/g, ',');
+
+  // Tampilkan ke UI (Visual)
+  const fullLabel = item.label ?? `${sub}, ${dist}`;
   document.getElementById('dest-sel-name').textContent = fullLabel;
-  document.getElementById('dest-sel-full').textContent = [item.city, item.province, item.zip_code ? 'Kode Pos ' + item.zip_code : ''].filter(Boolean).join(' · ');
+  document.getElementById('dest-sel-full').textContent = [city, prov, item.zip_code ? 'Kode Pos ' + item.zip_code : ''].filter(Boolean).join(' · ');
   document.getElementById('dest-selected-box').classList.add('visible');
 
   if (item.zip_code) document.getElementById('postal_code_input').value = item.zip_code;
-  document.getElementById('city_province_display').value = [item.city, item.province].filter(Boolean).join(', ');
+  
+  // SEKARANG KOTA / PROVINSI PASTI AKAN TERISI
+  document.getElementById('city_province_display').value = [city, prov].filter(Boolean).join(', ');
 
-  // Update search input
+  // Update input pencarian
   destInput.value = fullLabel;
   destClearBtn.classList.add('visible');
   closeDropdown();
 
-  // Reset courier selection
   resetCourier();
-
-  // Load ongkir
   loadOngkir(item.id ?? item.subdistrict_id);
 }
 

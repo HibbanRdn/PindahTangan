@@ -40,4 +40,24 @@ return [
         'origin'  => env('RAJAONGKIR_ORIGIN'),
     ],
 
+    'sakurupiah' => [
+        'base_url' => env('SAKURUPIAH_BASE_URL', 'https://sakurupiah.id/api-sanbox'),
+        'create_path' => env('SAKURUPIAH_CREATE_PATH', '/create.php'),
+        'api_id' => env('SAKURUPIAH_API_ID'),
+        'api_key' => env('SAKURUPIAH_API_KEY'),
+        'signature_key' => env('SAKURUPIAH_SIGNATURE_KEY'),
+        'webhook_secret' => env('SAKURUPIAH_WEBHOOK_SECRET'),
+        'webhook_signature_header' => env('SAKURUPIAH_WEBHOOK_SIGNATURE_HEADER', 'X-Callback-Signature'),
+        'webhook_event_header' => env('SAKURUPIAH_WEBHOOK_EVENT_HEADER', 'X-Callback-Event'),
+        'default_method' => env('SAKURUPIAH_DEFAULT_METHOD', 'QRIS'),
+        'merchant_fee' => env('SAKURUPIAH_MERCHANT_FEE', 1),
+        'expired_hours' => env('SAKURUPIAH_EXPIRED_HOURS', 24),
+        'map' => [
+            'transaction_id' => env('SAKURUPIAH_MAP_TRANSACTION_ID', 'trx_id'),
+            'checkout_url' => env('SAKURUPIAH_MAP_CHECKOUT_URL', 'data.checkout_url'),
+            'payment_method' => env('SAKURUPIAH_MAP_PAYMENT_METHOD', 'payment_kode'),
+            'status' => env('SAKURUPIAH_MAP_STATUS', 'status'),
+        ],
+    ],
+
 ];

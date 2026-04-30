@@ -329,7 +329,8 @@
   @if($cartItems->count() > 0)
 
     {{-- ══ FORM UTAMA: membungkus checkbox + tombol checkout ══ --}}
-    <form method="GET" action="{{ route('checkout.index') }}" id="checkout-form">
+    <form method="GET" action="{{ route('checkout.index') }}" id="checkout-form"></form>
+    
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
@@ -390,6 +391,7 @@
                   name="items[]"
                   value="{{ $item->id }}"
                   class="cart-checkbox item-checkbox"
+                  form="checkout-form"
                   data-price="{{ $price }}"
                   data-item-id="{{ $item->id }}"
                   {{ $isUnavailable ? 'disabled' : '' }}
@@ -565,7 +567,6 @@
 
       </div>
 
-    </form>{{-- /checkout-form --}}
 
   @else
 

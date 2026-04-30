@@ -7,26 +7,29 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
+use App\Services\SakurupiahService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
+    public function __construct(private SakurupiahService $sakurupiah)
+    {
+    }
+
     /**
      * Tampilkan halaman checkout hanya untuk item yang dipilih user.
      * Items dipilih dikirim via query string: ?items[]=1&items[]=3
      */
     public function index(Request $request)
     {
-        $request->validate([
-            'items'   => 'required|array|min:1',
-            'items.*' => 'integer|exists:carts,id',
-        ], [
-            'items.required' => 'Pilih minimal 1 item untuk di-checkout.',
-            'items.min'      => 'Pilih minimal 1 item untuk di-checkout.',
-        ]);
+        // Validasi manual anti-redirect loop
+        if (!$request->has('items') || !is_array($request->items)) {
+            return redirect()->route('keranjang.index')->with('error', 'Pilih minimal 1 item untuk di-checkout.');
+        }
 
         // Ambil hanya item yang dipilih & milik user ini
         $selectedItems = Cart::with(['product.category'])
@@ -34,9 +37,9 @@ class CheckoutController extends Controller
             ->where('user_id', auth()->id())
             ->get();
 
-        if ($selectedItems->isEmpty()) {
+        if ($selectedItems->isEmpty() || $selectedItems->count() !== count($request->items)) {
             return redirect()->route('keranjang.index')
-                ->with('error', 'Item yang dipilih tidak ditemukan di keranjang.');
+                ->with('info', 'Item yang Anda pilih sudah diproses dalam pesanan. Silakan periksa Daftar Pesanan Anda.');
         }
 
         // Cek ulang ketersediaan setiap item yang dipilih
@@ -69,10 +72,10 @@ class CheckoutController extends Controller
      * Proxy ke RajaOngkir API V2 (Direct Search Method).
      *
      * Mode 1 — Search destinasi:
-     *   GET /checkout/ongkir?search=menteng
+     * GET /checkout/ongkir?search=menteng
      *
      * Mode 2 — Kalkulasi ongkir:
-     *   GET /checkout/ongkir?destination=123&weight=500
+     * GET /checkout/ongkir?destination=123&weight=500
      */
     public function cekOngkir(Request $request)
     {
@@ -213,11 +216,28 @@ class CheckoutController extends Controller
                 'created_at'     => now(),
             ]);
 
-            // Buat payment record (pending — belum ada transaction_id dari Sakurupiah)
-            Payment::create([
+            // Buat payment record awal (pending)
+            $payment = Payment::create([
                 'order_id' => $order->id,
                 'amount'   => $total,
                 'status'   => 'pending',
+            ]);
+
+            $paymentPayload = $this->sakurupiah->createTransaction($order, auth()->user(), [
+                // Beri URL dummy juga untuk return_url saat di localhost
+                'return_url'   => app()->environment('local') 
+                                    ? 'https://example.com/pesanan/sukses/' . $orderCode 
+                                    : route('pesanan.sukses', $orderCode),
+                
+                'callback_url' => app()->environment('local') 
+                                    ? 'https://example.com/webhook/sakurupiah' 
+                                    : route('webhook.sakurupiah'),
+            ]);
+
+            $payment->update([
+                'transaction_id'    => data_get($paymentPayload, 'transaction_id'),
+                'payment_method'    => data_get($paymentPayload, 'payment_method'),
+                'response_snapshot' => $paymentPayload,
             ]);
 
             // Hapus cart items yang sudah di-checkout
@@ -225,17 +245,32 @@ class CheckoutController extends Controller
                 ->where('user_id', auth()->id())
                 ->delete();
 
+            $checkoutUrl = data_get($paymentPayload, 'checkout_url');
+            if (! $checkoutUrl) {
+                // Jika error dilempar di sini, DB akan di-rollback dan item keranjang akan kembali!
+                throw new \RuntimeException('Sakurupiah checkout URL tidak ditemukan. Raw: ' . json_encode($paymentPayload['raw'] ?? []));
+            }
+
+            // 👇 PINDAHKAN DB::COMMIT KE SINI 👇
             DB::commit();
 
-            // TODO: Redirect ke Sakurupiah payment gateway
-            // Untuk sementara redirect ke halaman pesanan sukses
-            return redirect()->route('pesanan.sukses', $orderCode)
-                ->with('success', 'Pesanan berhasil dibuat! Segera selesaikan pembayaran.');
+            return redirect()->away($checkoutUrl);
 
         } catch (\Exception $e) {
+// ...
             DB::rollBack();
+
+            Log::error('Checkout Sakurupiah gagal', [
+                'user_id' => auth()->id(),
+                'message' => $e->getMessage(),
+            ]);
+
+            $msg = app()->environment('local')
+                ? 'Checkout gagal: ' . $e->getMessage()
+                : 'Terjadi kesalahan saat membuat pesanan. Silakan coba lagi.';
+
             return back()->withInput()
-                ->with('error', 'Terjadi kesalahan saat membuat pesanan. Silakan coba lagi.');
+                ->with('error', $msg);
         }
     }
 }
