@@ -25,7 +25,10 @@ class WebhookController extends Controller
         }
 
         // Bypass signature untuk testing lokal
-        if (! app()->environment('local') || $signature !== 'skip-local') {
+        // Pisahkan kondisi dengan jelas
+        $isLocalBypass = app()->environment('local') && $signature === 'skip-local';
+
+        if (! $isLocalBypass) {
             if (! $this->sakurupiah->isValidWebhookSignature($rawBody, $signature)) {
                 return response()->json(['message' => 'Invalid signature'], 401);
             }

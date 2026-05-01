@@ -13,28 +13,131 @@
     :root {
       --emerald:     #10b981;
       --emerald-600: #059669;
+      --emerald-700: #047857;
       --emerald-50:  #ecfdf5;
       --emerald-100: #d1fae5;
       --gray-900:    #111827;
       --gray-700:    #374151;
+      --gray-500:    #6b7280;
       --gray-400:    #9ca3af;
       --gray-100:    #f3f4f6;
+      --gray-50:     #f9fafb;
       --border:      #e5e7eb;
+      --white:       #ffffff;
     }
 
     body       { font-family: 'DM Sans', sans-serif; background: #fff; color: var(--gray-900); }
     .jakarta   { font-family: 'Plus Jakarta Sans', sans-serif; }
     .cormorant { font-family: 'Cormorant Garamond', serif; }
 
-    /* ── Navbar ── */
+    /* ─────────────────────────────────────────────────
+       NAVBAR — seragam dengan halaman lain
+    ───────────────────────────────────────────────── */
     #navbar {
-      position: fixed; top: 0; width: 100%; z-index: 50;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid transparent;
-      transition: border-color .3s, box-shadow .3s;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
     }
-    #navbar.scrolled { border-bottom-color: var(--border); box-shadow: 0 1px 12px rgba(0,0,0,0.06); }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* Tombol ikon bulat (keranjang, pesanan, login) */
+    .nav-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--gray-500);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .nav-icon-btn:hover {
+      background: var(--gray-50);
+      color: var(--gray-900);
+      border-color: #d1d5db;
+    }
+    .nav-icon-btn svg { width: 15px; height: 15px; }
+
+    /* Tombol berlabel "Pesanan" */
+    .nav-pesanan-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--gray-500);
+      background: var(--white);
+      text-decoration: none;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .nav-pesanan-btn svg { width: 14px; height: 14px; }
+    .nav-pesanan-btn:hover {
+      border-color: var(--emerald);
+      color: var(--emerald-700);
+      background: var(--emerald-50);
+    }
+
+    /* Tombol "← Katalog" (pill hitam) */
+    .nav-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--gray-900);
+      border: none;
+      border-radius: 99px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .nav-back-btn:hover {
+      background: var(--emerald-600);
+      transform: translateY(-1px);
+    }
+    .nav-back-btn svg { width: 13px; height: 13px; }
+
+    /* Grup kanan navbar */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner { padding: 0 16px; }
+      .nav-back-btn { display: none; }   /* sembunyikan di mobile, breadcrumb sudah cukup */
+      .nav-pesanan-btn { display: none; }
+    }
 
     /* ── Gallery ── */
     .gallery-main {
@@ -166,20 +269,16 @@
     .toast-icon { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 
     /* ── Breadcrumb ── */
-    .breadcrumb { display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--gray-400); }
+    .breadcrumb { display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--gray-400); flex-wrap:wrap; }
     .breadcrumb a { color:var(--gray-400); text-decoration:none; transition:color .15s; }
     .breadcrumb a:hover { color:var(--gray-900); }
-    .breadcrumb svg { width:12px; height:12px; }
+    .breadcrumb svg { width:12px; height:12px; flex-shrink:0; }
 
     /* ── Sold banner ── */
     .sold-banner {
       background: linear-gradient(135deg, #f8fafc, #f1f5f9);
       border: 1px solid #e2e8f0; border-radius: 14px;
       padding: 16px 20px; display: flex; align-items: center; gap: 12px;
-    }
-
-    @media (max-width: 768px) {
-      .detail-grid { flex-direction: column; }
     }
   </style>
 </head>
@@ -190,45 +289,68 @@
 
   <!-- ══ NAVBAR ══ -->
   <nav id="navbar">
-    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative">
-      <a href="/" class="shrink-0 z-10">
-        <img src="{{ asset('images/logo_full.png') }}" alt="PindahTangan" class="h-10 w-auto" />
+    <div class="nav-inner">
+
+      {{-- Logo --}}
+      <a href="{{ route('produk.index') }}" style="flex-shrink:0;">
+        <img src="{{ asset('images/logo_full.png') }}" alt="PindahTangan" style="height:40px;width:auto;" />
       </a>
-      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500 absolute left-1/2 -translate-x-1/2">
-        <a href="/" class="hover:text-gray-900 transition-colors duration-200">Beranda</a>
-        <a href="{{ route('produk.index') }}" class="text-emerald-600 font-bold">Katalog</a>
-      </div>
-      <div class="flex items-center gap-3 z-10">
+
+      {{-- Grup kanan --}}
+      <div class="nav-actions">
+
         @auth
-          <a href="{{ route('keranjang.index') }}"
-             class="relative w-9 h-9 rounded-full bg-white/70 border border-gray-200 flex items-center justify-center text-gray-600 hover:text-emerald-600 hover:border-emerald-200 transition-all duration-200">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+          {{-- Tombol Pesanan (berlabel, disembunyikan di mobile via CSS) --}}
+          <a href="{{ route('pesanan.index') }}" class="nav-pesanan-btn" title="Riwayat Pesanan">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+            Pesanan
+          </a>
+
+          {{-- Keranjang --}}
+          <a href="{{ route('keranjang.index') }}" class="nav-icon-btn" title="Keranjang">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
             </svg>
           </a>
-          <form method="POST" action="{{ route('logout') }}" class="hidden md:inline">
+
+          {{-- Logout --}}
+          <form method="POST" action="{{ route('logout') }}" style="display:inline;">
             @csrf
-            <button type="submit"
-              class="w-9 h-9 rounded-full bg-white/70 border border-gray-200 flex items-center justify-center text-gray-600 hover:text-red-500 transition-all duration-200">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            <button type="submit" class="nav-icon-btn" title="Keluar"
+              onmouseover="this.style.color='#ef4444';this.style.borderColor='#fca5a5';this.style.background='#fff5f5'"
+              onmouseout="this.style.color='';this.style.borderColor='';this.style.background=''">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
               </svg>
             </button>
           </form>
+
         @else
-          <a href="{{ route('login') }}"
-             class="w-9 h-9 rounded-full bg-white/70 border border-gray-200 flex items-center justify-center text-gray-600 hover:text-gray-900 transition-all duration-200">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          {{-- Login --}}
+          <a href="{{ route('login') }}" class="nav-icon-btn" title="Masuk">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
             </svg>
           </a>
         @endauth
-        <a href="{{ route('produk.index') }}"
-           class="hidden md:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-gray-900 rounded-full hover:bg-emerald-600 transition-colors duration-200 shadow-sm">
-          ← Katalog
+
+        {{-- ← Kembali ke Katalog --}}
+        <a href="{{ route('produk.index') }}" class="nav-back-btn">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Katalog
         </a>
-      </div>
-    </div>
+
+      </div>{{-- /nav-actions --}}
+
+    </div>{{-- /nav-inner --}}
   </nav>
 
   <!-- ══ PARALLAX BG ══ -->
@@ -246,7 +368,9 @@
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       <a href="{{ route('produk.index', ['category' => $produk->category_id]) }}">{{ $produk->category->name ?? '—' }}</a>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <span class="text-gray-700 font-semibold truncate max-w-xs">{{ Str::limit($produk->name, 40) }}</span>
+      <span style="color:var(--gray-700);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px;">
+        {{ Str::limit($produk->name, 40) }}
+      </span>
     </nav>
 
     <!-- Skeleton -->
@@ -380,7 +504,7 @@
 
           <!-- Catatan kondisi -->
           @if($produk->condition_notes)
-            <div class="mb-6 p-4 bg-amber-50 border border-amber-100 rounded-14px rounded-xl">
+            <div class="mb-6 p-4 bg-amber-50 border border-amber-100 rounded-xl">
               <div class="flex items-start gap-3">
                 <svg class="w-4 h-4 text-amber-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
@@ -552,13 +676,7 @@
       if (rl) rl.style.opacity = '1';
     }, 450);
 
-    // ── 2. Navbar scroll ────────────────────────────────────────
-    const navbar = document.getElementById('navbar');
-    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 10);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    // ── 3. Subtle parallax on blob ──────────────────────────────
+    // ── 2. Parallax blob ────────────────────────────────────────
     const blob = document.getElementById('blob1');
     let raf = false;
     window.addEventListener('scroll', () => {
@@ -569,9 +687,9 @@
       });
     }, { passive: true });
 
-    // ── 4. Gallery switcher ─────────────────────────────────────
   });
 
+  // ── 3. Gallery switcher ─────────────────────────────────────
   function switchImage(src, thumbEl) {
     const mainImg = document.getElementById('main-gallery-img');
     if (mainImg) {
@@ -586,7 +704,7 @@
     thumbEl.classList.add('active');
   }
 
-  // ── 5. Add to cart: optimistic UX ───────────────────────────
+  // ── 4. Add to cart: optimistic UX ───────────────────────────
   const cartForm = document.getElementById('cart-form');
   if (cartForm) {
     cartForm.addEventListener('submit', function() {
@@ -600,7 +718,7 @@
     });
   }
 
-  // ── 6. Auto-show toast dari session ──────────────────────────
+  // ── 5. Auto-show toast dari session ──────────────────────────
   @if(session('success'))
     showToast('success', 'Berhasil!', @json(session('success')));
   @endif

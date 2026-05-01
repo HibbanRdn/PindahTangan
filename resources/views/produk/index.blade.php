@@ -30,7 +30,7 @@
       --border-light: #f3f4f6;
       --white:        #ffffff;
 
-      --nav-height-top:    104px; /* row1 64px + row2 40px */
+      --nav-height-top:    104px;
       --island-height:     52px;
       --island-top:        16px;
 
@@ -55,7 +55,7 @@
     .cormorant { font-family: 'Cormorant Garamond', serif; }
 
     /* ─────────────────────────────────────────────────
-       NAVIGATION SYSTEM — TOP STATE
+       NAVIGATION SYSTEM
     ───────────────────────────────────────────────── */
     #nav-system {
       position: fixed;
@@ -78,7 +78,6 @@
       pointer-events: none;
     }
 
-    /* Row 1 — main nav bar */
     .nav-row1 {
       height: 64px;
       background: rgba(255, 255, 255, 0.92);
@@ -87,21 +86,19 @@
       border-bottom: 1px solid var(--border-light);
       display: flex;
       align-items: center;
-      justify-content: center;   /* ← centering outer row */
+      justify-content: center;
       padding: 0 24px;
     }
 
-    /* ── NEW: inner wrapper untuk centering & justify konten ── */
     .nav-inner {
       width: 100%;
       max-width: 1280px;
       display: flex;
       align-items: center;
       gap: 12px;
-      justify-content: space-between; /* ← logo kiri, actions kanan */
+      justify-content: space-between;
     }
 
-    /* Search wrap flex di tengah */
     .nav-inner .nav-search-wrap {
       flex: 1;
       min-width: 0;
@@ -115,7 +112,6 @@
     }
     .nav-logo img { height: 36px; width: auto; }
 
-    /* Inline search bar */
     .nav-search-wrap {
       flex: 1;
       position: relative;
@@ -150,7 +146,6 @@
       box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.10);
     }
 
-    /* Filter controls in nav */
     .nav-controls {
       display: flex;
       align-items: center;
@@ -233,6 +228,30 @@
     .nav-icon-btn:hover { background: var(--gray-50); color: var(--gray-900); border-color: var(--gray-300); }
     .nav-icon-btn svg { width: 15px; height: 15px; }
 
+    /* ── Pesanan nav button (label + icon) ── */
+    .nav-pesanan-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--gray-600);
+      background: var(--white);
+      text-decoration: none;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .nav-pesanan-btn svg { width: 14px; height: 14px; }
+    .nav-pesanan-btn:hover {
+      border-color: var(--emerald);
+      color: var(--emerald-700);
+      background: var(--emerald-50);
+    }
+
     .nav-reset-link {
       display: flex;
       align-items: center;
@@ -248,7 +267,6 @@
     .nav-reset-link:hover { color: #ef4444; }
     .nav-reset-link svg { width: 12px; height: 12px; }
 
-    /* Row 2 — category strip */
     .nav-row2 {
       height: 40px;
       background: rgba(255, 255, 255, 0.96);
@@ -257,11 +275,10 @@
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      justify-content: center;   /* ← centering outer row */
-      overflow: hidden;          /* ← clip, scroll ada di inner */
+      justify-content: center;
+      overflow: hidden;
     }
 
-    /* ── NEW: scrollable inner untuk category chips ── */
     .nav-row2-inner {
       width: 100%;
       max-width: 1280px;
@@ -288,7 +305,7 @@
       cursor: pointer;
       text-decoration: none;
       white-space: nowrap;
-      flex-shrink: 0;            /* ← jangan menyusut, agar scroll aktif */
+      flex-shrink: 0;
       transition: all 0.18s;
     }
     .cat-chip:hover {
@@ -329,7 +346,7 @@
       align-items: center;
       gap: 4px;
       padding: 6px 10px;
-      background: rgba(255, 255, 255, 0.96);     /* ← putih */
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-radius: 99px;
@@ -337,7 +354,7 @@
         0 4px 24px rgba(0, 0, 0, 0.10),
         0 1px 4px rgba(0, 0, 0, 0.06),
         inset 0 1px 0 rgba(255, 255, 255, 0.9);
-      border: 1.5px solid var(--border);          /* ← border abu tipis */
+      border: 1.5px solid var(--border);
     }
 
     .island-logo {
@@ -349,13 +366,12 @@
     .island-logo img {
       height: 22px;
       width: auto;
-      /* tidak perlu invert, background sudah putih */
     }
 
     .island-divider {
       width: 1px;
       height: 20px;
-      background: var(--border);          /* ← abu terang di background putih */
+      background: var(--border);
       flex-shrink: 0;
       margin: 0 2px;
     }
@@ -369,7 +385,7 @@
       justify-content: center;
       background: transparent;
       border: none;
-      color: var(--gray-500);             /* ← ikon abu di background putih */
+      color: var(--gray-500);
       cursor: pointer;
       text-decoration: none;
       transition: background 0.18s, color 0.18s, transform 0.18s;
@@ -377,8 +393,8 @@
       flex-shrink: 0;
     }
     .island-btn:hover {
-      background: var(--emerald-50);      /* ← hover hijau muda */
-      color: var(--emerald-600);          /* ← ikon hijau saat hover */
+      background: var(--emerald-50);
+      color: var(--emerald-600);
       transform: scale(1.08);
     }
     .island-btn:active { transform: scale(0.94); }
@@ -392,13 +408,13 @@
       height: 6px;
       border-radius: 50%;
       background: var(--emerald);
-      border: 1.5px solid var(--white);   /* ← border putih */
+      border: 1.5px solid var(--white);
       display: none;
     }
     .island-btn.has-filter .dot { display: block; }
 
     /* ─────────────────────────────────────────────────
-       ISLAND PANELS (Search + Filter dropdowns)
+       ISLAND PANELS
     ───────────────────────────────────────────────── */
     .island-panel-wrap {
       position: fixed;
@@ -922,17 +938,14 @@
 </head>
 <body>
 
-  {{-- ══════════════════════════════════════════════════════
-       SINGLE FORM — wraps entire navigation system
-  ══════════════════════════════════════════════════════ --}}
+  {{-- ══ SINGLE FORM ══ --}}
   <form method="GET" action="{{ route('produk.index') }}" id="filter-form">
 
-    {{-- ── NAVIGATION SYSTEM ────────────────────────────── --}}
+    {{-- ── NAVIGATION SYSTEM ── --}}
     <div id="nav-system" class="state-top">
 
       {{-- Row 1: logo + search + controls + actions --}}
       <div class="nav-row1">
-        {{-- ↓ nav-inner: menengahkan konten hingga max 1280px --}}
         <div class="nav-inner">
 
           {{-- Logo --}}
@@ -1005,11 +1018,23 @@
                   </svg>
                 </a>
               @endif
+
+              {{-- ══ TOMBOL PESANAN (BARU) ══ --}}
+              <a href="{{ route('pesanan.index') }}" class="nav-pesanan-btn hide-mobile" title="Riwayat Pesanan">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                </svg>
+                Pesanan
+              </a>
+
+              {{-- Keranjang --}}
               <a href="{{ route('keranjang.index') }}" class="nav-icon-btn" title="Keranjang">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                 </svg>
               </a>
+
+              {{-- Logout --}}
               <button type="submit" form="logout-form" title="Keluar"
                 class="hidden md:inline-flex w-9 h-9 rounded-full bg-white/70 border border-gray-200 items-center justify-center text-gray-600 hover:text-red-500 hover:border-red-200 transition-all duration-200">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1028,9 +1053,8 @@
         </div>{{-- /nav-inner --}}
       </div>{{-- /nav-row1 --}}
 
-      {{-- Row 2: category chips dengan scroll --}}
+      {{-- Row 2: category chips --}}
       <div class="nav-row2">
-        {{-- ↓ nav-row2-inner: scrollable, max-width 1280px, terpusat --}}
         <div class="nav-row2-inner">
 
           <a href="{{ route('produk.index') }}"
@@ -1048,7 +1072,6 @@
             </a>
           @endforeach
 
-          {{-- Hidden inputs untuk preserve filter state --}}
           @if(request('sort'))
             <input type="hidden" name="sort" value="{{ request('sort') }}">
           @endif
@@ -1063,9 +1086,7 @@
 
   </form>{{-- /filter-form --}}
 
-  {{-- ══════════════════════════════════════════════════════
-       DYNAMIC ISLAND
-  ══════════════════════════════════════════════════════ --}}
+  {{-- ══ DYNAMIC ISLAND ══ --}}
   <div id="dynamic-island">
     <div class="island-pill">
 
@@ -1101,6 +1122,13 @@
       <div class="island-divider"></div>
 
       @auth
+        {{-- ══ TOMBOL PESANAN DI ISLAND (BARU) ══ --}}
+        <a href="{{ route('pesanan.index') }}" class="island-btn" title="Riwayat Pesanan">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+          </svg>
+        </a>
+
         <a href="{{ route('keranjang.index') }}" class="island-btn" title="Keranjang">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
@@ -1201,9 +1229,7 @@
   </div>{{-- /island-panel-wrap --}}
 
 
-  {{-- ══════════════════════════════════════════════════════
-       PAGE MAIN — Product catalog
-  ══════════════════════════════════════════════════════ --}}
+  {{-- ══ PAGE MAIN ══ --}}
   <main id="page-main">
 
     {{-- Page header --}}
