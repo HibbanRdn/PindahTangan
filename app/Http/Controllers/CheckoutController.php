@@ -224,14 +224,8 @@ class CheckoutController extends Controller
             ]);
 
             $paymentPayload = $this->sakurupiah->createTransaction($order, auth()->user(), [
-                // Beri URL dummy juga untuk return_url saat di localhost
-                'return_url'   => app()->environment('local') 
-                                    ? 'https://example.com/pesanan/sukses/' . $orderCode 
-                                    : route('pesanan.sukses', $orderCode),
-                
-                'callback_url' => app()->environment('local') 
-                                    ? 'https://example.com/webhook/sakurupiah' 
-                                    : route('webhook.sakurupiah'),
+                'return_url'   => route('pesanan.sukses', $orderCode),
+                'callback_url' => route('webhook.sakurupiah'),
             ]);
 
             $payment->update([

@@ -11,6 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Trust Cloudflare Tunnel proxy
+        $middleware->trustProxies(at: '*');
 
         // Daftarkan alias middleware 'role'
         $middleware->alias([
@@ -21,7 +23,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'webhook/sakurupiah',
         ]);
-
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

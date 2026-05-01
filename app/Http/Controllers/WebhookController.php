@@ -24,8 +24,11 @@ class WebhookController extends Controller
             return response()->json(['message' => 'Ignored event'], 200);
         }
 
-        if (! $this->sakurupiah->isValidWebhookSignature($rawBody, $signature)) {
-            return response()->json(['message' => 'Invalid signature'], 401);
+        // Bypass signature untuk testing lokal
+        if (! app()->environment('local') || $signature !== 'skip-local') {
+            if (! $this->sakurupiah->isValidWebhookSignature($rawBody, $signature)) {
+                return response()->json(['message' => 'Invalid signature'], 401);
+            }
         }
 
         $transactionId = data_get($request->all(), config('services.sakurupiah.map.transaction_id', 'trx_id'));
