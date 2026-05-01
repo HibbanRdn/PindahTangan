@@ -6,87 +6,94 @@ use App\Models\Order;
 use App\Models\Testimonial;
 use App\Models\TestimonialImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class TestimonialController extends Controller
 {
-    public function create($orderCode)
+    /**
+     * Halaman publik — daftar semua testimoni yang sudah approved.
+     */
+    public function index()
     {
-        $order = Order::where('order_code', $orderCode)
-            ->where('user_id', auth()->id()) // FIX: pakai auth user
-            ->where('status', 'completed')
+        $testimonials = Testimonial::with(['user', 'order.items', 'images'])
+            ->where('status', 'approved')
+            ->latest()
+            ->paginate(12);
+
+        $stats = [
+            'total'   => Testimonial::where('status', 'approved')->count(),
+            'avg'     => round(Testimonial::where('status', 'approved')->avg('rating'), 1),
+            'five'    => Testimonial::where('status', 'approved')->where('rating', 5)->count(),
+        ];
+
+        return view('testimonials.index', compact('testimonials', 'stats'));
+    }
+
+    /**
+     * Form tulis testimoni.
+     * Validasi: order harus milik user, status completed, belum ada testimoni.
+     */
+    public function create(string $order_code)
+    {
+        $order = Order::with(['items.product', 'testimonial'])
+            ->where('order_code', $order_code)
+            ->where('user_id', auth()->id())
             ->firstOrFail();
 
-        // Cegah double testimoni (BR-T02)
-        if ($order->testimonial()->exists()) {
-            return redirect()->back()->with('info', 'Anda sudah memberikan testimoni untuk pesanan ini.');
-        }
+        // Validasi business rules
+        abort_if($order->status !== 'completed', 403, 'Pesanan belum selesai.');
+        abort_if(! is_null($order->testimonial), 403, 'Testimoni sudah pernah dikirim.');
 
         return view('testimonials.create', compact('order'));
     }
 
-    public function store(Request $request, $orderCode)
+    /**
+     * Simpan testimoni baru.
+     */
+    public function store(Request $request, string $order_code)
     {
-        $order = Order::where('order_code', $orderCode)
-            ->where('user_id', auth()->id()) // FIX: pakai auth user
-            ->where('status', 'completed')
+        $order = Order::with('testimonial')
+            ->where('order_code', $order_code)
+            ->where('user_id', auth()->id())
             ->firstOrFail();
 
-        // Cegah double testimoni
-        if ($order->testimonial()->exists()) {
-            return redirect()->back()->with('info', 'Anda sudah memberikan testimoni untuk pesanan ini.');
-        }
+        abort_if($order->status !== 'completed', 403, 'Pesanan belum selesai.');
+        abort_if(! is_null($order->testimonial), 403, 'Testimoni sudah pernah dikirim.');
 
         $request->validate([
             'rating'    => 'required|integer|min:1|max:5',
             'comment'   => 'required|string|min:10|max:1000',
-            'images'    => 'nullable|array|max:3',
-            'images.*'  => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'images.*'  => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048',
         ], [
-            'rating.required'   => 'Rating wajib dipilih.',
-            'rating.min'        => 'Rating minimal 1 bintang.',
-            'rating.max'        => 'Rating maksimal 5 bintang.',
-            'comment.required'  => 'Komentar wajib diisi.',
+            'rating.required'   => 'Pilih rating bintang terlebih dahulu.',
+            'comment.required'  => 'Tulis komentar testimoni Anda.',
             'comment.min'       => 'Komentar minimal 10 karakter.',
-            'comment.max'       => 'Komentar maksimal 1000 karakter.',
-            'images.max'        => 'Maksimal 3 foto.',
             'images.*.image'    => 'File harus berupa gambar.',
-            'images.*.max'      => 'Ukuran foto maksimal 2MB.',
+            'images.*.max'      => 'Ukuran foto maksimal 2 MB per file.',
         ]);
 
-        DB::beginTransaction();
+        $testimonial = Testimonial::create([
+            'user_id'  => auth()->id(),
+            'order_id' => $order->id,
+            'rating'   => $request->rating,
+            'comment'  => $request->comment,
+            'status'   => 'pending', // menunggu moderasi admin
+        ]);
 
-        try {
-            $testimonial = Testimonial::create([
-                'user_id'  => auth()->id(), // FIX: pakai auth user
-                'order_id' => $order->id,
-                'rating'   => $request->rating,
-                'comment'  => $request->comment,
-                'status'   => 'pending',
-            ]);
+        // Simpan foto (maks 3 foto)
+        if ($request->hasFile('images')) {
+            foreach (array_slice($request->file('images'), 0, 3) as $i => $file) {
+                $path = $file->store('testimonials', 'public');
 
-            if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $index => $image) {
-                    $filename = time() . '_' . $index . '.' . $image->getClientOriginalExtension();
-                    $path = $image->storeAs('testimonials', $filename, 'public');
-
-                    TestimonialImage::create([
-                        'testimonial_id' => $testimonial->id,
-                        'image_path'     => $path,
-                        'sort_order'     => $index,
-                    ]);
-                }
+                TestimonialImage::create([
+                    'testimonial_id' => $testimonial->id,
+                    'image_path'     => $path,
+                    'sort_order'     => $i,
+                ]);
             }
-
-            DB::commit();
-
-            return redirect()
-                ->route('pesanan.show', $orderCode)
-                ->with('success', 'Testimoni berhasil dikirim dan sedang ditinjau admin. Terima kasih!');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Terjadi kesalahan. Silakan coba lagi.');
         }
+
+        return redirect()->route('pesanan.show', $order_code)
+            ->with('success', 'Terima kasih! Testimoni Anda sudah dikirim dan sedang ditinjau oleh tim kami.');
     }
 }
