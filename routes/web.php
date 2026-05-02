@@ -12,6 +12,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\Admin\AdminProdukController;
 use App\Http\Controllers\Admin\AdminPesananController;
+use App\Http\Controllers\Admin\AdminTestimonialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,9 @@ Route::get('/', function () {
 // Katalog Produk
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/produk/{slug}', [ProdukController::class, 'show'])->name('produk.show');
+
+// Testimoni publik
+Route::get('/testimoni', [TestimonialController::class, 'index'])->name('testimoni.index');
 
 /*
 |--------------------------------------------------------------------------
@@ -97,7 +101,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/pesanan/sukses/{order_code}', [PesananController::class, 'sukses'])->name('pesanan.sukses');
     Route::get('/pesanan/{order_code}', [PesananController::class, 'show'])->name('pesanan.show');
 
-    // Testimoni
+    // Testimoni (form tulis — hanya untuk user yang sudah login & verified)
     Route::get('/testimoni/{order_code}/create', [TestimonialController::class, 'create'])->name('testimoni.create');
     Route::post('/testimoni/{order_code}', [TestimonialController::class, 'store'])->name('testimoni.store');
 
@@ -105,7 +109,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Payment Webhook (no CSRF — dikecualikan di VerifyCsrfToken.php)
+| Payment Webhook (no CSRF — dikecualikan di bootstrap/app.php)
 |--------------------------------------------------------------------------
 */
 
@@ -131,5 +135,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/pesanan', [AdminPesananController::class, 'index'])->name('pesanan.index');
     Route::get('/pesanan/{id}', [AdminPesananController::class, 'show'])->name('pesanan.show');
     Route::patch('/pesanan/{id}/status', [AdminPesananController::class, 'updateStatus'])->name('pesanan.updateStatus');
+
+    // Testimoni — moderasi admin
+    Route::get('/testimoni', [AdminTestimonialController::class, 'index'])->name('testimoni.index');
+    Route::patch('/testimoni/{id}/approve', [AdminTestimonialController::class, 'approve'])->name('testimoni.approve');
+    Route::patch('/testimoni/{id}/reject', [AdminTestimonialController::class, 'reject'])->name('testimoni.reject');
 
 });

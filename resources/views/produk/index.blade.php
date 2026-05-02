@@ -1230,24 +1230,115 @@
 
 
   {{-- ══ PAGE MAIN ══ --}}
-  <main id="page-main">
+    <main id="page-main">
 
-    {{-- Page header --}}
-    <div class="page-header">
-      <div class="page-header-left">
-        <h1 class="jakarta">
-          Katalog
-          <em class="cormorant">Pilihan Terbaik.</em>
-        </h1>
-        <p>Barang berkualitas, kondisi transparan, harga lebih hemat.</p>
-      </div>
-      @if($produk->total() > 0)
-        <div class="result-pill">
-          <div class="result-dot"></div>
-          {{ number_format($produk->total()) }} barang
+      {{-- Page header --}}
+      <div class="page-header">
+        <div class="page-header-left">
+          <h1 class="jakarta">
+            Katalog
+            <em class="cormorant">Pilihan Terbaik.</em>
+          </h1>
+          <p>Barang berkualitas, kondisi transparan, harga lebih hemat.</p>
         </div>
+        @if($produk->total() > 0)
+          <div class="result-pill">
+            <div class="result-dot"></div>
+            {{ number_format($produk->total()) }} barang
+          </div>
+        @endif
+      </div>
+
+      @if(($testimonialStats['total'] ?? 0) > 0)
+      <a href="{{ route('testimoni.index') }}"
+         style="
+           display:flex;
+           align-items:center;
+           justify-content:space-between;
+           gap:16px;
+           background:linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+           border:1.5px solid #a7f3d0;
+           border-radius:16px;
+           padding:14px 20px;
+           text-decoration:none;
+           margin-bottom:28px;
+           transition:border-color .2s, box-shadow .2s, transform .15s;
+           cursor:pointer;
+         "
+         onmouseover="this.style.borderColor='#059669';this.style.boxShadow='0 6px 24px rgba(5,150,105,.15)';this.style.transform='translateY(-1px)'"
+         onmouseout="this.style.borderColor='#a7f3d0';this.style.boxShadow='none';this.style.transform='translateY(0)'"
+      >
+        {{-- Kiri: bintang + teks --}}
+        <div style="display:flex;align-items:center;gap:14px;">
+
+          {{-- Icon bubble --}}
+          <div style="
+            width:44px;height:44px;border-radius:12px;
+            background:white;
+            box-shadow:0 2px 8px rgba(5,150,105,.15);
+            display:flex;align-items:center;justify-content:center;
+            flex-shrink:0;
+          ">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#f59e0b" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+            </svg>
+          </div>
+
+          <div>
+            {{-- Baris bintang kecil --}}
+            <div style="display:flex;align-items:center;gap:3px;margin-bottom:3px;">
+              @for($i = 1; $i <= 5; $i++)
+                <svg width="13" height="13" viewBox="0 0 24 24"
+                     style="fill:{{ $i <= round($testimonialStats['avg']) ? '#f59e0b' : '#d1d5db' }}"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                </svg>
+              @endfor
+              <span style="font-size:12.5px;font-weight:800;color:#059669;margin-left:4px;">
+                {{ number_format($testimonialStats['avg'], 1) }}
+              </span>
+            </div>
+
+            {{-- Copywriting --}}
+            <p style="margin:0;font-size:13.5px;font-weight:700;color:#065f46;line-height:1.3;">
+              <strong style="font-family:'Plus Jakarta Sans',sans-serif;">
+                {{ $testimonialStats['total'] }} pembeli
+              </strong>
+              sudah berbagi pengalaman berbelanja di sini —
+              <span style="text-decoration:underline;text-underline-offset:2px;">baca cerita mereka →</span>
+            </p>
+          </div>
+        </div>
+
+        {{-- Kanan: avatar stack (dekoratif) --}}
+        <div style="display:flex;align-items:center;flex-shrink:0;gap:0;" class="hidden md:flex">
+          @foreach(['#6ee7b7','#34d399','#10b981'] as $bg)
+            <div style="
+              width:32px;height:32px;border-radius:50%;
+              background:{{ $bg }};
+              border:2.5px solid white;
+              margin-left:-8px;
+              display:flex;align-items:center;justify-content:center;
+              font-size:11px;font-weight:800;color:white;
+            ">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          @endforeach
+          <div style="
+            width:32px;height:32px;border-radius:50%;
+            background:#059669;
+            border:2.5px solid white;
+            margin-left:-8px;
+            display:flex;align-items:center;justify-content:center;
+            font-size:10px;font-weight:800;color:white;
+          ">+{{ max(0, $testimonialStats['total'] - 3) }}</div>
+        </div>
+
+      </a>
       @endif
-    </div>
+      {{-- ↑↑↑ SELESAI PASTE DI SINI ↑↑↑ --}}
 
     {{-- Active filter tags --}}
     @if(request()->hasAny(['search', 'category', 'condition']) || (request('sort') && request('sort') !== 'latest'))

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Testimonial; // Tambahan: Import model Testimonial
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -45,7 +46,14 @@ class ProdukController extends Controller
         $produk     = $query->paginate(12)->withQueryString();
         $categories = Category::orderBy('name')->get();
 
-        return view('produk.index', compact('produk', 'categories'));
+        // ════ BAGIAN TAMBAHAN DARI PR: Statistik Testimoni ════
+        $testimonialStats = [
+            'total' => Testimonial::where('status', 'approved')->count(),
+            'avg'   => round((float) Testimonial::where('status', 'approved')->avg('rating'), 1),
+        ];
+
+        // Pass 'testimonialStats' ke dalam view
+        return view('produk.index', compact('produk', 'categories', 'testimonialStats'));
     }
 
     /**
