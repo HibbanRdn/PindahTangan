@@ -100,6 +100,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
     Route::get('/pesanan/sukses/{order_code}', [PesananController::class, 'sukses'])->name('pesanan.sukses');
     Route::get('/pesanan/{order_code}', [PesananController::class, 'show'])->name('pesanan.show');
+    Route::delete('/pesanan/{order_code}/cancel', [PesananController::class, 'cancel'])->name('pesanan.cancel');
 
     // Testimoni (form tulis — hanya untuk user yang sudah login & verified)
     Route::get('/testimoni/{order_code}/create', [TestimonialController::class, 'create'])->name('testimoni.create');

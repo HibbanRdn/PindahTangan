@@ -39,7 +39,6 @@
     .jakarta   { font-family: 'Plus Jakarta Sans', sans-serif; }
     .cormorant { font-family: 'Cormorant Garamond', serif; }
 
-    /* ── Navbar ── */
     #navbar {
       position: fixed; top: 0; width: 100%; z-index: 50;
       background: rgba(255,255,255,0.92);
@@ -53,7 +52,6 @@
       display: flex; align-items: center; justify-content: space-between;
     }
 
-    /* ── Success icon animation ── */
     @keyframes scaleIn {
       0%   { transform: scale(0); opacity: 0; }
       60%  { transform: scale(1.15); }
@@ -72,137 +70,79 @@
       to   { opacity: 1; transform: translateY(0); }
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes pulse { 0%,100% { opacity:1;} 50% { opacity:.5;} }
 
     .success-icon-wrap {
-      position: relative;
-      width: 96px; height: 96px;
-      margin: 0 auto 28px;
+      position: relative; width: 96px; height: 96px; margin: 0 auto 28px;
     }
     .success-ripple {
-      position: absolute; inset: 0;
-      border-radius: 50%;
-      background: var(--emerald-100);
-      animation: ripple 1.8s ease-out infinite;
+      position: absolute; inset: 0; border-radius: 50%;
+      background: var(--emerald-100); animation: ripple 1.8s ease-out infinite;
     }
     .success-circle {
-      position: absolute; inset: 0;
-      border-radius: 50%;
+      position: absolute; inset: 0; border-radius: 50%;
       background: var(--emerald-600);
       display: flex; align-items: center; justify-content: center;
       animation: scaleIn .6s cubic-bezier(0.22,1,0.36,1) both;
     }
     .success-check {
-      stroke-dasharray: 60;
-      stroke-dashoffset: 60;
+      stroke-dasharray: 60; stroke-dashoffset: 60;
       animation: checkDraw .5s ease-out .5s forwards;
     }
 
-    /* ── Main card ── */
     .sukses-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 48px 40px;
-      max-width: 520px;
-      margin: 0 auto;
-      text-align: center;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 24px; padding: 48px 40px;
+      max-width: 520px; margin: 0 auto; text-align: center;
       animation: fadeUp .6s cubic-bezier(0.22,1,0.36,1) both;
     }
 
-    /* ── Info box ── */
     .info-box {
-      background: var(--gray-50);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px 20px;
-      margin: 24px 0;
-      text-align: left;
+      background: var(--gray-50); border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px 20px; margin: 24px 0; text-align: left;
     }
     .info-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 7px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 13px;
-      gap: 12px;
+      padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; gap: 12px;
     }
     .info-row:last-child { border-bottom: none; }
     .info-label { color: var(--gray-400); font-weight: 500; }
     .info-value { font-weight: 700; color: var(--gray-900); text-align: right; }
 
-    /* ── Status indicator ── */
     .status-pending-box {
-      background: #fef9c3;
-      border: 1px solid #fde047;
-      border-radius: 12px;
-      padding: 12px 16px;
-      display: flex; align-items: center; gap: 10px;
-      margin: 20px 0;
-      text-align: left;
+      background: #fef9c3; border: 1px solid #fde047; border-radius: 12px;
+      padding: 12px 16px; display: flex; align-items: center; gap: 10px; margin: 20px 0; text-align: left;
     }
     .status-paid-box {
-      background: var(--emerald-50);
-      border: 1px solid var(--emerald-100);
-      border-radius: 12px;
-      padding: 12px 16px;
-      display: flex; align-items: center; gap: 10px;
-      margin: 20px 0;
-      text-align: left;
+      background: var(--emerald-50); border: 1px solid var(--emerald-100); border-radius: 12px;
+      padding: 12px 16px; display: flex; align-items: center; gap: 10px; margin: 20px 0; text-align: left;
     }
 
-    /* ── Buttons ── */
     .btn-primary {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 13px 24px; width: 100%;
-      font-size: 14px; font-weight: 800;
+      padding: 13px 24px; width: 100%; font-size: 14px; font-weight: 800;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      color: #fff; background: var(--gray-900);
-      border: none; border-radius: 12px;
-      text-decoration: none;
-      transition: background .2s, transform .15s, box-shadow .2s;
+      color: #fff; background: var(--gray-900); border: none; border-radius: 12px;
+      text-decoration: none; transition: background .2s, transform .15s, box-shadow .2s;
     }
     .btn-primary:hover {
-      background: var(--emerald-600);
-      box-shadow: 0 8px 24px rgba(5,150,105,0.3);
-      transform: translateY(-1px);
+      background: var(--emerald-600); box-shadow: 0 8px 24px rgba(5,150,105,0.3); transform: translateY(-1px);
     }
     .btn-secondary {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 12px 24px; width: 100%;
-      font-size: 13.5px; font-weight: 700;
-      color: var(--gray-700);
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      text-decoration: none;
-      transition: all .18s;
+      padding: 12px 24px; width: 100%; font-size: 13.5px; font-weight: 700;
+      color: var(--gray-700); background: var(--white);
+      border: 1.5px solid var(--border); border-radius: 12px;
+      text-decoration: none; transition: all .18s;
     }
-    .btn-secondary:hover {
-      border-color: var(--emerald);
-      color: var(--emerald-600);
-      background: var(--emerald-50);
-    }
+    .btn-secondary:hover { border-color: var(--emerald); color: var(--emerald-600); background: var(--emerald-50); }
 
-    /* ── Auto-refresh spinner ── */
     .spinner-sm {
-      width: 13px; height: 13px;
-      border: 2px solid #fde047;
-      border-top-color: #854d0e;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      flex-shrink: 0;
+      width: 13px; height: 13px; border: 2px solid #fde047; border-top-color: #854d0e;
+      border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0;
     }
 
-    /* ── Confetti dots (decorative) ── */
-    .dots-bg {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-    }
-    .dot {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0;
-      animation: dotFloat linear infinite;
-    }
+    .dots-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .dot { position: absolute; border-radius: 50%; opacity: 0; animation: dotFloat linear infinite; }
     @keyframes dotFloat {
       0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
       10%  { opacity: .7; }
@@ -218,7 +158,6 @@
 </head>
 <body>
 
-{{-- ══ DEKORATIF DOTS ══ --}}
 <div class="dots-bg" aria-hidden="true">
   <div class="dot" style="width:8px;height:8px;background:#a7f3d0;left:10%;animation-duration:8s;animation-delay:0s;"></div>
   <div class="dot" style="width:6px;height:6px;background:#6ee7b7;left:25%;animation-duration:10s;animation-delay:1.5s;"></div>
@@ -234,12 +173,20 @@
     <a href="/">
       <img src="{{ asset('images/logo_full.png') }}" alt="PindahTangan" style="height:40px;width:auto;" />
     </a>
-    <a href="{{ route('produk.index') }}"
-       style="font-size:12.5px;font-weight:600;color:var(--gray-400);text-decoration:none;transition:color .15s;"
-       onmouseover="this.style.color='var(--gray-900)'"
-       onmouseout="this.style.color='var(--gray-400)'">
-      Lanjut Belanja →
-    </a>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <a href="{{ route('pesanan.index') }}"
+         style="font-size:12.5px;font-weight:600;color:var(--gray-400);text-decoration:none;transition:color .15s;"
+         onmouseover="this.style.color='var(--gray-900)'"
+         onmouseout="this.style.color='var(--gray-400)'">
+        ← Riwayat Pesanan
+      </a>
+      <a href="{{ route('produk.index') }}"
+         style="font-size:12.5px;font-weight:600;color:var(--gray-400);text-decoration:none;transition:color .15s;"
+         onmouseover="this.style.color='var(--gray-900)'"
+         onmouseout="this.style.color='var(--gray-400)'">
+        Lanjut Belanja →
+      </a>
+    </div>
   </div>
 </nav>
 
@@ -247,13 +194,13 @@
 <main style="position:relative;z-index:1;min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:80px 24px 60px;">
 
   @php
-    $payment = $order->payment;
-    $isPaid  = $payment?->status === 'paid';
+    $payment  = $order->payment;
+    $isPaid   = $payment?->status === 'paid';
+    $canCancel = $order->status === 'pending' && ($payment?->status ?? 'pending') === 'pending';
   @endphp
 
   <div class="sukses-card">
 
-    {{-- Success icon --}}
     <div class="success-icon-wrap">
       <div class="success-ripple"></div>
       <div class="success-circle">
@@ -263,7 +210,6 @@
       </div>
     </div>
 
-    {{-- Heading --}}
     <h1 class="jakarta" style="font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.03em;margin:0 0 6px;">
       Pesanan <em class="cormorant" style="color:var(--emerald-600);font-size:1.1em;">Diterima!</em>
     </h1>
@@ -274,7 +220,6 @@
       Pesanan Anda telah kami terima dan sedang menunggu konfirmasi pembayaran.
     </p>
 
-    {{-- Status pembayaran --}}
     @if($isPaid)
       <div class="status-paid-box">
         <svg style="width:20px;height:20px;color:var(--emerald-600);flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -297,7 +242,6 @@
       </div>
     @endif
 
-    {{-- Order info box --}}
     <div class="info-box">
       <div class="info-row">
         <span class="info-label">Nomor Pesanan</span>
@@ -328,7 +272,6 @@
       </div>
     </div>
 
-    {{-- Info box --}}
     <div style="background:var(--gray-50);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:24px;display:flex;align-items:flex-start;gap:10px;text-align:left;">
       <svg style="width:16px;height:16px;color:var(--gray-400);flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -353,9 +296,30 @@
         </svg>
         Lanjut Belanja
       </a>
+
+      {{-- Tombol batalkan — hanya muncul jika order & payment masih pending --}}
+      @if($canCancel)
+        <form method="POST" action="{{ route('pesanan.cancel', $order->order_code) }}"
+              onsubmit="return confirm('Yakin ingin membatalkan pesanan ini? Tindakan tidak bisa dibatalkan.')">
+          @csrf
+          @method('DELETE')
+          <button type="submit"
+                  style="display:inline-flex;align-items:center;justify-content:center;gap:8px;
+                         padding:12px 24px;width:100%;font-size:13px;font-weight:700;
+                         color:#b91c1c;background:#fff5f5;border:1.5px solid #fecaca;
+                         border-radius:12px;cursor:pointer;transition:all .18s;
+                         font-family:'DM Sans',sans-serif;"
+                  onmouseover="this.style.background='#fee2e2';this.style.borderColor='#f87171'"
+                  onmouseout="this.style.background='#fff5f5';this.style.borderColor='#fecaca'">
+            <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+            Batalkan Pesanan
+          </button>
+        </form>
+      @endif
     </div>
 
-    {{-- Footer note --}}
     <p style="font-size:11.5px;color:var(--gray-400);margin:20px 0 0;line-height:1.6;">
       Pertanyaan? Hubungi kami melalui email atau media sosial PindahTangan.
     </p>
@@ -363,24 +327,15 @@
   </div>
 </main>
 
-{{-- Auto-refresh jika payment masih pending --}}
 @if(!$isPaid)
   <script>
-    // Auto-reload halaman setiap 30 detik untuk cek status pembayaran
-    // Berhenti setelah 5 menit (10 kali reload)
     let reloadCount = 0;
     const maxReloads = 10;
-
     const autoReload = setInterval(() => {
       reloadCount++;
-      if (reloadCount >= maxReloads) {
-        clearInterval(autoReload);
-        return;
-      }
+      if (reloadCount >= maxReloads) { clearInterval(autoReload); return; }
       window.location.reload();
     }, 30000);
-
-    // Batalkan auto-reload kalau user navigasi keluar
     window.addEventListener('beforeunload', () => clearInterval(autoReload));
   </script>
 @endif

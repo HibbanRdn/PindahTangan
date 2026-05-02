@@ -38,7 +38,6 @@
     .jakarta   { font-family: 'Plus Jakarta Sans', sans-serif; }
     .cormorant { font-family: 'Cormorant Garamond', serif; }
 
-    /* ── Navbar ── */
     #navbar {
       position: fixed; top: 0; width: 100%; z-index: 50;
       background: rgba(255,255,255,0.92);
@@ -52,34 +51,15 @@
       display: flex; align-items: center; justify-content: space-between;
     }
 
-    /* ── Cards ── */
-    .detail-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      overflow: hidden;
-    }
-    .card-head {
-      padding: 18px 22px;
-      border-bottom: 1px solid var(--gray-100);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .card-icon {
-      width: 34px; height: 34px; border-radius: 10px;
-      background: var(--emerald-50);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
+    .detail-card { background: var(--white); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+    .card-head { padding: 18px 22px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 10px; }
+    .card-icon { width: 34px; height: 34px; border-radius: 10px; background: var(--emerald-50); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .card-icon svg { width: 16px; height: 16px; color: var(--emerald-600); }
     .card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; color: var(--gray-900); }
     .card-subtitle { font-size: 12px; color: var(--gray-400); margin-top: 1px; }
     .card-body { padding: 20px 22px; }
 
-    /* ── Status badges ── */
-    .badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 4px 12px; border-radius: 99px;
-      font-size: 12px; font-weight: 700;
-    }
+    .badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 700; }
     .badge-pending     { background: #fef9c3; color: #854d0e; }
     .badge-processing  { background: #dbeafe; color: #1e40af; }
     .badge-shipped     { background: #ede9fe; color: #5b21b6; }
@@ -90,112 +70,41 @@
     .pay-failed   { background: #fee2e2; color: #b91c1c; }
     .pay-expired  { background: var(--gray-100); color: var(--gray-500); }
 
-    /* ── Order item row ── */
-    .order-item-row {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--gray-50);
-    }
+    .order-item-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--gray-50); }
     .order-item-row:last-child { border-bottom: none; }
-    .order-item-img {
-      width: 64px; height: 64px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--gray-100);
-      flex-shrink: 0;
-    }
+    .order-item-img { width: 64px; height: 64px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--gray-100); flex-shrink: 0; }
     .order-item-img img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* ── Info rows ── */
-    .info-row {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--gray-50);
-      gap: 16px;
-    }
+    .info-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid var(--gray-50); gap: 16px; }
     .info-row:last-child { border-bottom: none; }
     .info-label { font-size: 12.5px; color: var(--gray-400); font-weight: 500; flex-shrink: 0; }
     .info-value { font-size: 13px; color: var(--gray-900); font-weight: 600; text-align: right; }
 
-    /* ── Price summary ── */
-    .price-row {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 13px; color: var(--gray-500);
-      padding: 7px 0;
-    }
+    .price-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--gray-500); padding: 7px 0; }
     .price-row .val { font-weight: 600; color: var(--gray-700); }
-    .price-total {
-      display: flex; justify-content: space-between; align-items: baseline;
-      padding-top: 14px; margin-top: 4px;
-      border-top: 1.5px solid var(--border);
-    }
+    .price-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 14px; margin-top: 4px; border-top: 1.5px solid var(--border); }
 
-    /* ── Status timeline ── */
     .timeline { display: flex; flex-direction: column; gap: 0; }
-    .timeline-item {
-      display: flex; align-items: flex-start; gap: 14px;
-      padding: 10px 0; position: relative;
-    }
-    .timeline-item:not(:last-child)::before {
-      content: '';
-      position: absolute;
-      left: 11px; top: 34px;
-      width: 2px; height: calc(100% - 10px);
-      background: var(--border);
-    }
-    .timeline-dot {
-      width: 24px; height: 24px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 2px;
-      border: 2px solid var(--border);
-      background: var(--white);
-      position: relative; z-index: 1;
-    }
+    .timeline-item { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; position: relative; }
+    .timeline-item:not(:last-child)::before { content: ''; position: absolute; left: 11px; top: 34px; width: 2px; height: calc(100% - 10px); background: var(--border); }
+    .timeline-dot { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; border: 2px solid var(--border); background: var(--white); position: relative; z-index: 1; }
     .timeline-dot.done { background: var(--emerald-600); border-color: var(--emerald-600); }
     .timeline-dot.active { background: var(--white); border-color: var(--emerald-600); box-shadow: 0 0 0 3px var(--emerald-100); }
     .timeline-dot svg { width: 12px; height: 12px; color: #fff; }
     .timeline-label { font-size: 13px; font-weight: 600; color: var(--gray-900); }
     .timeline-sub { font-size: 11.5px; color: var(--gray-400); margin-top: 2px; }
 
-    /* ── Buttons ── */
-    .btn-back {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 12.5px; font-weight: 600;
-      color: var(--gray-400); text-decoration: none;
-      padding: 6px 12px;
-      border: 1px solid var(--border); border-radius: 8px;
-      transition: all .15s;
-    }
+    .btn-back { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; color: var(--gray-400); text-decoration: none; padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; transition: all .15s; }
     .btn-back:hover { color: var(--gray-900); border-color: var(--gray-300); background: var(--white); }
-    .btn-testimoni {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 12px 24px; width: 100%;
-      font-size: 13.5px; font-weight: 800;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      color: #fff; background: var(--emerald-600);
-      border: none; border-radius: 12px;
-      text-decoration: none; cursor: pointer;
-      transition: background .2s, transform .15s, box-shadow .2s;
-    }
-    .btn-testimoni:hover {
-      background: var(--emerald-700);
-      box-shadow: 0 8px 24px rgba(5,150,105,0.3);
-      transform: translateY(-1px);
-    }
+    .btn-testimoni { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; width: 100%; font-size: 13.5px; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; color: #fff; background: var(--emerald-600); border: none; border-radius: 12px; text-decoration: none; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; }
+    .btn-testimoni:hover { background: var(--emerald-700); box-shadow: 0 8px 24px rgba(5,150,105,0.3); transform: translateY(-1px); }
     .btn-testimoni svg { width: 16px; height: 16px; }
 
-    /* ── Condition badge ── */
-    .cond-badge {
-      display: inline-flex; align-items: center; gap: 3px;
-      padding: 2px 8px; border-radius: 99px;
-      font-size: 10.5px; font-weight: 700;
-    }
+    .cond-badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 99px; font-size: 10.5px; font-weight: 700; }
     .cond-like_new { background: #dcfce7; color: #15803d; }
     .cond-good     { background: #dbeafe; color: #1d4ed8; }
     .cond-fair     { background: #ffedd5; color: #9a3412; }
 
-    /* ── Fade in ── */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
     .fade-up { animation: fadeUp .5s cubic-bezier(0.22,1,0.36,1) both; }
 
@@ -256,6 +165,9 @@
 
     $canTestimoni = $order->status === 'completed'
       && is_null($order->testimonial);
+
+    $canCancel = $order->status === 'pending'
+      && ($payment?->status ?? 'pending') === 'pending';
   @endphp
 
   {{-- Page header --}}
@@ -401,30 +313,12 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="info-row">
-              <span class="info-label">Penerima</span>
-              <span class="info-value">{{ $address->recipient_name }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Telepon</span>
-              <span class="info-value">{{ $address->phone }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Alamat</span>
-              <span class="info-value" style="max-width:240px;">{{ $address->address_detail }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Kota / Kecamatan</span>
-              <span class="info-value">{{ $address->city_name }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Provinsi</span>
-              <span class="info-value">{{ $address->province_name }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Kode Pos</span>
-              <span class="info-value">{{ $address->postal_code }}</span>
-            </div>
+            <div class="info-row"><span class="info-label">Penerima</span><span class="info-value">{{ $address->recipient_name }}</span></div>
+            <div class="info-row"><span class="info-label">Telepon</span><span class="info-value">{{ $address->phone }}</span></div>
+            <div class="info-row"><span class="info-label">Alamat</span><span class="info-value" style="max-width:240px;">{{ $address->address_detail }}</span></div>
+            <div class="info-row"><span class="info-label">Kota / Kecamatan</span><span class="info-value">{{ $address->city_name }}</span></div>
+            <div class="info-row"><span class="info-label">Provinsi</span><span class="info-value">{{ $address->province_name }}</span></div>
+            <div class="info-row"><span class="info-label">Kode Pos</span><span class="info-value">{{ $address->postal_code }}</span></div>
           </div>
         </div>
       @endif
@@ -443,20 +337,12 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="info-row">
-            <span class="info-label">Kurir</span>
-            <span class="info-value" style="text-transform:uppercase;">{{ $order->courier }}</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Layanan</span>
-            <span class="info-value">{{ $order->courier_service }}</span>
-          </div>
+          <div class="info-row"><span class="info-label">Kurir</span><span class="info-value" style="text-transform:uppercase;">{{ $order->courier }}</span></div>
+          <div class="info-row"><span class="info-label">Layanan</span><span class="info-value">{{ $order->courier_service }}</span></div>
           @if($order->shipping_estimate)
             <div class="info-row">
               <span class="info-label">Estimasi</span>
-              <span class="info-value">
-                {{ preg_replace('/HARI|hari|DAY|day/i', '', $order->shipping_estimate) }} Hari
-              </span>
+              <span class="info-value">{{ preg_replace('/HARI|hari|DAY|day/i', '', $order->shipping_estimate) }} Hari</span>
             </div>
           @endif
           @if($order->notes)
@@ -481,9 +367,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
           </div>
-          <div>
-            <div class="card-title">Ringkasan Biaya</div>
-          </div>
+          <div><div class="card-title">Ringkasan Biaya</div></div>
         </div>
         <div class="card-body">
           <div class="price-row">
@@ -511,16 +395,12 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
             </svg>
           </div>
-          <div>
-            <div class="card-title">Pembayaran</div>
-          </div>
+          <div><div class="card-title">Pembayaran</div></div>
         </div>
         <div class="card-body">
           <div class="info-row">
             <span class="info-label">Status</span>
-            <span class="info-value">
-              <span class="badge {{ $ps['class'] }}">{{ $ps['label'] }}</span>
-            </span>
+            <span class="info-value"><span class="badge {{ $ps['class'] }}">{{ $ps['label'] }}</span></span>
           </div>
           @if($payment?->payment_method)
             <div class="info-row">
@@ -531,15 +411,10 @@
           @if($payment?->transaction_id)
             <div class="info-row">
               <span class="info-label">ID Transaksi</span>
-              <span class="info-value" style="font-size:11px;word-break:break-all;color:var(--gray-500);">
-                {{ $payment->transaction_id }}
-              </span>
+              <span class="info-value" style="font-size:11px;word-break:break-all;color:var(--gray-500);">{{ $payment->transaction_id }}</span>
             </div>
           @endif
-          <div class="info-row">
-            <span class="info-label">Via</span>
-            <span class="info-value">Sakurupiah</span>
-          </div>
+          <div class="info-row"><span class="info-label">Via</span><span class="info-value">Sakurupiah</span></div>
         </div>
       </div>
 
@@ -578,6 +453,46 @@
                 <div style="font-size:11.5px;color:var(--emerald-600);margin-top:2px;">Terima kasih telah berbagi pengalaman!</div>
               </div>
             </div>
+          </div>
+        </div>
+      @endif
+
+      {{-- ✏️ PERUBAHAN: card batalkan pesanan — hanya muncul jika $canCancel --}}
+      @if($canCancel)
+        <div class="detail-card fade-up" style="border-color:#fecaca;animation-delay:.18s">
+          <div class="card-body" style="background:#fff5f5;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+              <div style="width:34px;height:34px;border-radius:10px;background:#fee2e2;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg style="width:16px;height:16px;color:#b91c1c;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:#b91c1c;">Batalkan Pesanan</div>
+                <div style="font-size:11.5px;color:#dc2626;margin-top:1px;">Pesanan belum dibayar</div>
+              </div>
+            </div>
+            <p style="font-size:12px;color:#9a1515;margin:0 0 12px;line-height:1.5;">
+              Jika tidak jadi melanjutkan pembayaran, batalkan pesanan ini agar tidak tertahan.
+            </p>
+            <form method="POST" action="{{ route('pesanan.cancel', $order->order_code) }}"
+                  onsubmit="return confirm('Yakin ingin membatalkan pesanan {{ $order->order_code }}?')">
+              @csrf
+              @method('DELETE')
+              <button type="submit"
+                      style="display:inline-flex;align-items:center;justify-content:center;gap:8px;
+                             padding:11px 20px;width:100%;font-size:13px;font-weight:700;
+                             color:#b91c1c;background:#fff;border:1.5px solid #fca5a5;
+                             border-radius:10px;cursor:pointer;transition:all .18s;
+                             font-family:'DM Sans',sans-serif;"
+                      onmouseover="this.style.background='#fee2e2';this.style.borderColor='#f87171';this.style.color='#991b1b'"
+                      onmouseout="this.style.background='#fff';this.style.borderColor='#fca5a5';this.style.color='#b91c1c'">
+                <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+                Ya, Batalkan Pesanan
+              </button>
+            </form>
           </div>
         </div>
       @endif
