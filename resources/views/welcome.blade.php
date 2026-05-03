@@ -210,7 +210,7 @@
         <div class="fan-card absolute rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
              style="width:160px;height:220px;z-index:10;
                     --bloom-transform: rotate(-18deg) translateX(-310px) translateY(30px);">
-          <img src="https://picsum.photos/seed/jacket/400/600" alt="Jacket" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
+          <img src="https://media-photos.depop.com/b1/20647972/1395976946_e966303fad444028b6af110a48a7be60/P0.jpg" alt="Jacket" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
           <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           <div class="absolute bottom-2 left-2 bg-white/90 text-[10px] font-bold px-2 py-0.5 rounded-full">Jacket</div>
         </div>
@@ -219,7 +219,7 @@
         <div class="fan-card absolute rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
              style="width:160px;height:220px;z-index:20;
                     --bloom-transform: rotate(-9deg) translateX(-165px) translateY(10px);">
-          <img src="https://picsum.photos/seed/camera/400/600" alt="Kamera" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
+          <img src="https://i.etsystatic.com/32273226/r/il/8f148c/6834223888/il_1588xN.6834223888_2sw4.jpg" alt="Kamera" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
           <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           <div class="absolute bottom-2 left-2 bg-white/90 text-[10px] font-bold px-2 py-0.5 rounded-full">Kamera</div>
         </div>
@@ -229,7 +229,7 @@
              style="width:185px;height:255px;z-index:30;
                     box-shadow:0 30px 70px rgba(0,0,0,0.22);
                     --bloom-transform: rotate(-2deg);">
-          <img src="https://picsum.photos/seed/watch/400/600" alt="Watch" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
+          <img src="https://antaresvintagewatches.com/wp-content/uploads/2025/09/IMG_20250904_163604-scaled.jpg" alt="Watch" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
           <div class="absolute top-3 right-3 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Kondisi 95%</div>
           <div class="absolute bottom-3 left-3">
@@ -242,7 +242,7 @@
         <div class="fan-card absolute rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
              style="width:160px;height:220px;z-index:20;
                     --bloom-transform: rotate(9deg) translateX(165px) translateY(10px);">
-          <img src="https://picsum.photos/seed/bag/400/600" alt="Tote Bag" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
+          <img src="https://i.ebayimg.com/images/g/AiwAAOSwsptiTVAj/s-l1600.jpg" alt="Tote Bag" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
           <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           <div class="absolute bottom-2 left-2 bg-white/90 text-[10px] font-bold px-2 py-0.5 rounded-full">Tote Bag</div>
         </div>
@@ -251,7 +251,7 @@
         <div class="fan-card absolute rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
              style="width:160px;height:220px;z-index:10;
                     --bloom-transform: rotate(18deg) translateX(310px) translateY(30px);">
-          <img src="https://picsum.photos/seed/shoes/400/600" alt="Sneakers" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
+          <img src="https://preloved.co.id/_ipx/f_webp/https://assets.preloved.co.id/products/600167/344f51e7-1b67-41c3-b2b1-49fc783dfa90.jpg" alt="Sneakers" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
           <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           <div class="absolute bottom-2 left-2 bg-white/90 text-[10px] font-bold px-2 py-0.5 rounded-full">Sneakers</div>
         </div>
@@ -345,7 +345,7 @@
 
           <div class="scale-in tilt-card cursor-pointer group" style="transition-delay:0.05s">
             <div class="w-full h-72 md:h-96 bg-gray-100 rounded-3xl overflow-hidden relative mb-4">
-              <img src="https://picsum.photos/seed/sony/600/800" alt="Sony"
+              <img src="https://down-id.img.susercontent.com/file/id-11134207-23030-ivqqc116dgov50.webp" alt="Sony"
                    class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700" referrerpolicy="no-referrer" />
               <div class="absolute top-4 left-4 bg-white text-gray-900 text-xs font-black px-3 py-1 rounded-full shadow-sm uppercase">Like New</div>
               <div class="absolute top-4 right-4 bg-gray-900 text-white text-xs font-bold px-3 py-1 rounded-full">Rp 2.900k</div>
@@ -363,7 +363,7 @@
 
           <div class="scale-in tilt-card cursor-pointer group" style="transition-delay:0.15s">
             <div class="w-full h-72 md:h-96 bg-gray-100 rounded-3xl overflow-hidden relative mb-4">
-              <img src="https://picsum.photos/seed/nike/600/800" alt="Nike"
+              <img src="https://preloved.co.id/_ipx/f_webp/https://assets.preloved.co.id/products/376915/d4405881-fe9a-40a9-8a06-41ff018ad257.jpg" alt="Nike"
                    class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700" referrerpolicy="no-referrer" />
               <div class="absolute top-4 left-4 bg-white text-gray-900 text-xs font-black px-3 py-1 rounded-full shadow-sm uppercase">Min. Defect</div>
               <div class="absolute top-4 right-4 bg-gray-900 text-white text-xs font-bold px-3 py-1 rounded-full">Rp 1.500k</div>
@@ -381,7 +381,7 @@
 
           <div class="scale-in tilt-card cursor-pointer group" style="transition-delay:0.25s">
             <div class="w-full h-72 md:h-96 bg-gray-100 rounded-3xl overflow-hidden relative mb-4">
-              <img src="https://picsum.photos/seed/fujifilm/600/800" alt="Fujifilm"
+              <img src="https://down-id.img.susercontent.com/file/id-11134207-8224o-mhpquuvury8032.webp" alt="Fujifilm"
                    class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700" referrerpolicy="no-referrer" />
               <div class="absolute top-4 left-4 bg-white text-gray-900 text-xs font-black px-3 py-1 rounded-full shadow-sm uppercase">Good</div>
               <div class="absolute top-4 right-4 bg-gray-900 text-white text-xs font-bold px-3 py-1 rounded-full">Rp 9.200k</div>
